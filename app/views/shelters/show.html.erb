@@ -9,6 +9,7 @@
     <p>Zip: <%= @shelter.zip %></p>
     <p><%= link_to("View this shelter's pets", "/shelters/#{@shelter.id}/pets", class: "name") %></p>
   </div>
+  <%= link_to 'New Review', "/shelters/#{@shelter.id}/new_review" %>
   <% @shelter.reviews.each do |review| %>
     <div class="card show" id="review-<%= review.id %>">
       <p>Title: <%= review.title %></p>
