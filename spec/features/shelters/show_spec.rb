@@ -15,32 +15,21 @@ RSpec.describe "As a visitor:" do
         city: "Doggington",
         state: "CO",
         zip: "80414")
-      @review_with_image = Review.create!(
+      @img_review = Review.create!(
         title: "omg!!!",
         rating: 5,
         content: "pets super amazin!!",
         image: "https://cdn0.wideopenpets.com/wp-content/uploads/2016/04/valentines-8.jpg",
         shelter: @shelter_1
       )
-      @review_without_image = Review.create!(
+      @no_img_review = Review.create!(
         title: "eh",
         rating: 3,
         content: "it's ok I guess",
         shelter: @shelter_1
       )
-      @new_review_no_img = {
-        title: "new title",
-        rating: 1,
-        content: "this is the new review",
-      }
-      @new_review_with_image = {
-        title: "other review",
-        rating: 4,
-        content: "this one should have a picture!",
-        image: 'https://s3.amazonaws.com/petcentral.com/wp-content/uploads/2019/10/31153735/delfiepic.jpg'
-      }
 
-        visit "/shelters/#{@shelter_1.id}"
+      visit "/shelters/#{@shelter_1.id}"
     end
 
     it "I can see the info of the shelter" do
@@ -58,54 +47,19 @@ RSpec.describe "As a visitor:" do
     end
 
     it "I see a list of reviews for that shelter" do
-      within("#review-#{@review_with_image.id}") do
-        expect(page).to have_content("Title: #{@review_with_image.title}")
-        expect(page).to have_content("Rating: #{@review_with_image.rating}")
-        expect(page).to have_content("Content: #{@review_with_image.content}")
-        expect(page).to have_css("img[src*='#{@review_with_image.image}']")
+      within("#review-#{@img_review.id}") do
+        expect(page).to have_content("Title: #{@img_review.title}")
+        expect(page).to have_content("Rating: #{@img_review.rating}")
+        expect(page).to have_content("Content: #{@img_review.content}")
+        expect(page).to have_css("img[src*='#{@img_review.image}']")
       end
 
-      within("#review-#{@review_without_image.id}") do
-        expect(page).to have_content("#{@review_without_image.title}")
-        expect(page).to have_content("#{@review_without_image.rating}")
-        expect(page).to have_content("#{@review_without_image.content}")
-        #test that it has no image whatsoever
+      within("#review-#{@no_img_review.id}") do
+        expect(page).to have_content("#{@no_img_review.title}")
+        expect(page).to have_content("#{@no_img_review.rating}")
+        expect(page).to have_content("#{@no_img_review.content}")
+        expect(page).to_not have_css('img')
       end
-    end
-
-    it "I can add a new review with no image" do
-      click_link("New Review")
-      expect(current_path).to eq("/shelters/#{@shelter_1.id}/new_review")
-
-      fill_in 'title', with: @new_review_no_img[:title]
-      fill_in 'rating', with: @new_review_no_img[:rating]
-      fill_in 'content', with: @new_review_no_img[:content]
-
-      click_button('Add Review')
-
-      expect(current_path).to eq("/shelters/#{@shelter_1.id}")
-
-      expect(page).to have_content("Title: #{@new_review_no_img[:title]}")
-      expect(page).to have_content("Rating: #{@new_review_no_img[:rating]}")
-      expect(page).to have_content("Content: #{@new_review_no_img[:content]}")
-    end
-
-    it "I can add a new review with an image" do
-      click_link("New Review")
-      expect(current_path).to eq("/shelters/#{@shelter_1.id}/new_review")
-
-      fill_in 'title', with: @new_review_with_image[:title]
-      fill_in 'rating', with: @new_review_with_image[:rating]
-      fill_in 'content', with: @new_review_with_image[:content]
-      fill_in 'image', with: @new_review_with_image[:image]
-
-      click_button('Add Review')
-
-      expect(current_path).to eq("/shelters/#{@shelter_1.id}")
-
-      expect(page).to have_content("Title: #{@new_review_with_image[:title]}")
-      expect(page).to have_content("Rating: #{@new_review_with_image[:rating]}")
-      expect(page).to have_content("Content: #{@new_review_with_image[:content]}")
     end
   end
 end
