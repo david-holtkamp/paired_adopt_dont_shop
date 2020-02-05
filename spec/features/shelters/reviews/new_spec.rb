@@ -44,7 +44,7 @@ RSpec.describe "As a visitor:" do
     it "I can add a new review with no image" do
       click_link("New Review")
 
-      expect(current_path).to eq("/shelters/#{@shelter_1.id}/new_review")
+      expect(current_path).to eq("/shelters/#{@shelter_1.id}/reviews/new")
 
       fill_in 'title', with: @no_img_info[:title]
       fill_in 'rating', with: @no_img_info[:rating]
@@ -67,7 +67,7 @@ RSpec.describe "As a visitor:" do
     it "I can add a new review with an image" do
       click_link("New Review")
 
-      expect(current_path).to eq("/shelters/#{@shelter_1.id}/new_review")
+      expect(current_path).to eq("/shelters/#{@shelter_1.id}/reviews/new")
 
       fill_in 'title', with: @img_info[:title]
       fill_in 'rating', with: @img_info[:rating]
