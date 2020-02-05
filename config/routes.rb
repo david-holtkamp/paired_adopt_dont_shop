@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   patch '/shelters/:id', to: 'shelters#update'
   delete '/shelters/:id', to: 'shelters#destroy'
 
+  get '/shelters/:shelter_id/new_review', to: 'shelter_reviews#new'
+  post '/shelters/:shelter_id', to: 'shelter_reviews#create'
+
   get '/shelters/:shelter_id/pets', to: 'shelter_pets#index'
   post '/shelters/:shelter_id/pets', to: 'shelter_pets#create'
   get '/shelters/:shelter_id/pets/new', to: 'shelter_pets#new'
