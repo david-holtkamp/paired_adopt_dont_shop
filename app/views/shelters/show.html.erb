@@ -21,6 +21,7 @@
         <% end %>
       <% end %>
       <%= link_to("Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit") %>
+      <%= link_to 'Delete Review', "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete %>
     </div>
   <% end %>
 </div>
