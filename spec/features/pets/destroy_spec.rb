@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "As a visitor:" do
   describe "from the pet show page" do
     it "I can delete a pet from the database" do
+      Pet.destroy_all
+      Shelter.destroy_all
       dog_city = Shelter.create!(
         name: "Dog City",
         address: "1923 Dog Ln",
