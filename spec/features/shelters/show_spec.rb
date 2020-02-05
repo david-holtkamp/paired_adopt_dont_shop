@@ -100,7 +100,6 @@ RSpec.describe "As a visitor:" do
       fill_in 'image', with: @new_review_with_image[:image]
 
       click_button('Add Review')
-      save_and_open_page
 
       expect(current_path).to eq("/shelters/#{@shelter_1.id}")
 
