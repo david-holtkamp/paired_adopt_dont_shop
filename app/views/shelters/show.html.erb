@@ -1,4 +1,5 @@
 <div class="content">
+  <p><%= link_to 'New Review', "/shelters/#{@shelter.id}/new_review" %></p>
   <div class="card show">
     <%= link_to 'Update Shelter', "/shelters/#{@shelter.id}/edit", class: "left small" %>
     <%= link_to 'Delete Shelter', "/shelters/#{@shelter.id}/", method: :delete, class: "right small" %><br>
@@ -9,13 +10,17 @@
     <p>Zip: <%= @shelter.zip %></p>
     <p><%= link_to("View this shelter's pets", "/shelters/#{@shelter.id}/pets", class: "name") %></p>
   </div>
-  <%= link_to 'New Review', "/shelters/#{@shelter.id}/new_review" %>
   <% @shelter.reviews.each do |review| %>
     <div class="card show" id="review-<%= review.id %>">
       <p>Title: <%= review.title %></p>
       <p>Rating: <%= review.rating %></p>
       <p>Content: <%= review.content %></p>
-      <p>Image: <%= image_tag(review.image) if review.image %></p>
+      <% if review.image %>
+        <% unless review.image == '' %>
+          <p>Image: <%= image_tag(review.image) %></p><br>
+        <% end %>
+      <% end %>
+      <%= link_to("Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit") %>
     </div>
   <% end %>
 </div>
