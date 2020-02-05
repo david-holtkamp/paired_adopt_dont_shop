@@ -1,4 +1,4 @@
-class ShelterReviewsController < ApplicationController
+class ReviewsController < ApplicationController
   def new
     @shelter_id = params[:shelter_id]
   end
