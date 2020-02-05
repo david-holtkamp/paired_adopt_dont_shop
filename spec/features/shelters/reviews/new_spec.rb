@@ -87,5 +87,17 @@ RSpec.describe "As a visitor:" do
         expect(page).to_not have_content("Title: #{@no_img_review[:title]}")
       end
     end
+
+    it "I cannot create a review without required fields completed" do
+      click_link("New Review")
+
+      expect(current_path).to eq("/shelters/#{@shelter_1.id}/reviews/new")
+
+      click_button("Add Review")
+
+      expect(page).to have_content("You need to fill in a title, rating, and content in order to submit a shelter review")
+      expect(page).to have_button("Add Review")
+    end
+
   end
 end

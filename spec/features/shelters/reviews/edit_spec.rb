@@ -98,5 +98,20 @@ RSpec.describe "As a visitor:" do
         expect(page).to_not have_content("Content: #{@img_review[:content]}")
       end
     end
+    it "I cannot edit a review without required fields completed" do
+      within("#review-#{@img_review.id}") { click_link("Edit Review") }
+
+      expect(current_path).to eq("/shelters/#{@shelter_1.id}/reviews/#{@img_review.id}/edit")
+
+      fill_in 'title', with: ''
+      fill_in 'rating', with: ''
+      fill_in 'content', with: ''
+      fill_in 'image', with: ''
+
+      click_button('Update Review')
+
+      expect(page).to have_content("You need to fill in a title, rating, and content in order to edit a shelter review")
+      expect(page).to have_button("Update Review")
+    end
   end
 end
