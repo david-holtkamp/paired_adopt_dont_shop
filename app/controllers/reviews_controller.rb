@@ -4,8 +4,13 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    Review.create(review_params)
-    redirect_to "/shelters/#{params[:shelter_id]}"
+    review = Review.new(review_params)
+    if review.save
+      redirect_to "/shelters/#{params[:shelter_id]}"
+    else
+      flash[:notice] = "You need to fill in a title, rating, and content in order to submit a shelter review"
+      render :new
+    end
   end
 
   def edit
