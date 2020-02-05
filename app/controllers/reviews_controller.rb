@@ -18,9 +18,17 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    review = Review.find(params[:review_id])
-    review.update(review_params)
-    redirect_to "/shelters/#{params[:shelter_id]}"
+    @review = Review.find(params[:review_id])
+    @review.title = params[:title]
+    @review.rating = params[:rating]
+    @review.content = params[:content]
+    @review.image = params[:image]
+    if @review.save
+      redirect_to "/shelters/#{params[:shelter_id]}"
+    else
+      flash[:notice] = "You need to fill in a title, rating, and content in order to edit a shelter review"
+      render :edit 
+    end
   end
 
   def destroy
