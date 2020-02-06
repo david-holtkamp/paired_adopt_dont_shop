@@ -1,17 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Favorites do
+  subject { Favorites.new([1, 5, 8, 13, 16]) }
+
   describe "#total_count" do
     it "can calculate total number of favorites" do
-      # favorites = Favorites.new([1, 5, 8, 13, 16])
-      favorites = Favorites.new({
-        1 => true,
-        3 => true,
-        4 => true,
-        13 => true,
-        48 => true
-        })
-      expect(favorites.total_count).to eq(5)
+      expect(subject.total_count).to eq(5)
+    end
+  end
+
+  describe "#add_pet" do
+    it "adds a pet to its contents" do
+      subject.add_pet(3)
+      subject.add_pet(100)
+      subject.add_pet(5)
+
+      expect(subject.contents).to eq([1, 5, 8, 13, 16, 3, 100])
     end
   end
 end
