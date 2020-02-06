@@ -2,19 +2,19 @@ require 'rails_helper'
 
 RSpec.describe Favorites do
   subject { Favorites.new(
-    {1 => {
+    {'1' => {
       name: "Bud",
       image: "image url"},
-    5 => {
+    '5' => {
       name: "Spud",
       image: "image url"},
-    8 => {
+    '8' => {
       name: "Mud",
       image: "image url"},
-    13 => {
+    '13' => {
       name: "Hud",
       image: "image url"},
-    16 => {
+    '16' => {
       name: "Dud",
       image: "image url"}
     }) }
@@ -32,25 +32,25 @@ RSpec.describe Favorites do
       subject.add_pet({id: 5, info: {name:'C', image:'yo'}})
 
       expected_contents =
-      {1 => {
+      {'1' => {
         name: "Bud",
         image: "image url"},
-      5 => {
+      '5' => {
         name: "Spud",
         image: "image url"},
-      8 => {
+      '8' => {
         name: "Mud",
         image: "image url"},
-      13 => {
+      '13' => {
         name: "Hud",
         image: "image url"},
-      16 => {
+      '16' => {
         name: "Dud",
         image: "image url"},
-      3 => {
+      '3' => {
         name: "A",
         image: "yo"},
-      100 => {
+      '100' => {
         name: "B",
         image: "yo"}
       }

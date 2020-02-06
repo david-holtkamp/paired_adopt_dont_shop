@@ -6,8 +6,7 @@ class Favorites
   end
 
   def add_pet(pet_info)
-    # @contents << id if !@contents.include?(id)
-    @contents[pet_info[:id]] ||= pet_info[:info]
+    @contents[pet_info[:id].to_s] ||= pet_info[:info]
   end
 
   def total_count
