@@ -1,0 +1,6 @@
+<% @pets.each do |pet| %>
+  <div class="card" id="pet-<%= pet.id %>">
+    <h3>Name: <%= link_to(pet.name, "pets/#{pet.id}", class: "big name") %></h3>
+    <p><%= image_tag(pet.image) %></p>
+  </div>
+<% end %>
