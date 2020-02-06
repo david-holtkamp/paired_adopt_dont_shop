@@ -1,23 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Favorites do
-  subject { Favorites.new(
-    {'1' => {
-      name: "Bud",
-      image: "image url"},
-    '5' => {
-      name: "Spud",
-      image: "image url"},
-    '8' => {
-      name: "Mud",
-      image: "image url"},
-    '13' => {
-      name: "Hud",
-      image: "image url"},
-    '16' => {
-      name: "Dud",
-      image: "image url"}
-    }) }
+  subject { Favorites.new(["1", "5", "8", "13", "16"]) }
 
   describe "#total_count" do
     it "can calculate total number of favorites" do
@@ -27,34 +11,11 @@ RSpec.describe Favorites do
 
   describe "#add_pet" do
     it "adds a pet to its contents" do
-      subject.add_pet({id: 3, info: {name:'A', image:'yo'}})
-      subject.add_pet({id: 100, info: {name:'B', image:'yo'}})
-      subject.add_pet({id: 5, info: {name:'C', image:'yo'}})
+      subject.add_pet(3)
+      subject.add_pet(100)
+      subject.add_pet(5)
 
-      expected_contents =
-      {'1' => {
-        name: "Bud",
-        image: "image url"},
-      '5' => {
-        name: "Spud",
-        image: "image url"},
-      '8' => {
-        name: "Mud",
-        image: "image url"},
-      '13' => {
-        name: "Hud",
-        image: "image url"},
-      '16' => {
-        name: "Dud",
-        image: "image url"},
-      '3' => {
-        name: "A",
-        image: "yo"},
-      '100' => {
-        name: "B",
-        image: "yo"}
-      }
-      expect(subject.contents).to eq(expected_contents)
+      expect(subject.contents).to eq(["1", "5", "8", "13", "16", "3", "100"])
     end
   end
 end
