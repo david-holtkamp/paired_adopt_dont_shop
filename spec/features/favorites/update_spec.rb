@@ -29,18 +29,19 @@ RSpec.describe "As a visitor:" do
       visit "pets/#{@pet_1.id}"
     end
 
-    it "I can see the info of the pet" do
-      expect(page).to have_css("img[src*='#{@pet_1.image}']")
-      expect(page).to have_content("Name: #{@pet_1.name}", count: 1)
-      expect(page).to have_content("Description: #{@pet_1.description}", count: 1)
-      expect(page).to have_content("Age: #{@pet_1.age}", count: 1)
-      expect(page).to have_content("Sex: #{@pet_1.sex}", count: 1)
-      expect(page).to have_content("Status: #{@pet_1.status}", count: 1)
+    it "I see a message when I add a pet to my favorites" do
+      click_link("Add to Favorites")
 
-      expect(page).to_not have_content(@pet_2.name)
-      expect(page).to_not have_content(@pet_2.description)
-      expect(page).to_not have_content(@pet_2.age)
-      expect(page).to_not have_content(@pet_2.sex)
+      expect(current_path).to eq("/pets/#{@pet_1.id}")
+      expect(page).to have_content("#{@pet_1.name} has been added to favorites!")
+    end
+
+    it "I see the favorite indicator count increment when I add favorites" do
+      within('nav') { expect(page).to have_content("FAVORITES: 0")}
+
+      click_link("Add to Favorites")
+
+      within('nav') { expect(page).to have_content("FAVORITES: 1")}
     end
   end
 end

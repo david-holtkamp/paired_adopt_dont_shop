@@ -14,6 +14,8 @@ RSpec.describe Pet, type: :model do
   end
   describe "methods" do
     before :each do
+      Pet.destroy_all
+      Shelter.destroy_all
       @dog_city = Shelter.create!(
         name: "Dog City",
         address: "1923 Dog Ln",

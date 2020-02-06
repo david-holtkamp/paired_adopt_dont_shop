@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "As a visitor:" do
   describe "from the shelter/pets index" do
     before :each do
+      Pet.destroy_all
+      Shelter.destroy_all
       @dog_city = Shelter.create!(
         name: "Dog City",
         address: "1923 Dog Ln",
