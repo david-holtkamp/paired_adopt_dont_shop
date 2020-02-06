@@ -6,7 +6,7 @@ class Favorites
   end
 
   def add_pet(id)
-    @contents << id if !@contents.include?(id)
+    @contents << id.to_s if !@contents.include?(id.to_s)
   end
 
   def total_count
