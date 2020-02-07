@@ -68,7 +68,25 @@ RSpec.describe "As a visitor:" do
       expect(current_path).to eq('/favorites')
       within('nav') { expect(page).to have_link('FAVORITES: 1')}
       expect(page).to_not have_css("#pet-#{@pet_2.id}")
-      expect(page).to have_css("#pet-#{@pet_1.id}")      
+      expect(page).to have_css("#pet-#{@pet_1.id}")
+    end
+
+    it "I can remove all pets from favorites page" do
+      click_link "Add to Favorites"
+
+      visit "/pets/#{@pet_2.id}"
+
+      click_link "Add to Favorites"
+
+      visit '/favorites'
+
+      click_link("Remove All Favorited Pets")
+
+      expect(current_path).to eq('/favorites')
+      within('nav') { expect(page).to have_link('FAVORITES: 0')}
+      expect(page).to_not have_css("#pet-#{@pet_2.id}")
+      expect(page).to_not have_css("#pet-#{@pet_1.id}")
+      expect(page).to have_content("You have no favorited pets")
     end
   end
 end
