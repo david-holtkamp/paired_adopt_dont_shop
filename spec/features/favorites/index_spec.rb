@@ -23,19 +23,27 @@ RSpec.describe "As a visitor" do
         age: "4 years old",
         sex: "female",
         shelter: @dog_city)
+    end
+
+    it "I can see all pets I've favorited" do
       visit "/pets/#{@pet_1.id}"
       click_link("Add to Favorites")
 
       visit "/pets/#{@pet_2.id}"
       click_link("Add to Favorites")
-    end
-    it "I can see all pets I've favorited" do
+
       visit '/favorites'
 
       expect(page).to have_link(@pet_1.name)
       expect(page).to have_css("img[src*='#{@pet_1.image}']")
       expect(page).to have_link(@pet_2.name)
       expect(page).to have_css("img[src*='#{@pet_2.image}']")
+    end
+
+    it "I see a message when I have no favorites" do
+      visit '/favorites'
+
+      expect(page).to have_content("You have no favorited pets")
     end
   end
 end
