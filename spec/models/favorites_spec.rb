@@ -18,12 +18,22 @@ RSpec.describe Favorites do
       expect(subject.contents).to eq(["1", "5", "8", "13", "16", "3", "100"])
     end
   end
+
   describe "#delete_pet" do
     it "deletes a pet from its contents" do
       subject.delete_pet(13)
 
 
       expect(subject.contents).to eq(["1", "5", "8", "16"])
+    end
+  end
+
+  describe "#reset" do
+    it "resets its contents" do
+      subject.reset
+
+
+      expect(subject.contents).to eq([])
     end
   end
 end
