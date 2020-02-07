@@ -9,7 +9,7 @@ class FavoritesController < ApplicationController
   end
 
   def index
-    @pets = Pet.find(session[:favorites])
+    @pets = Pet.find(favorites.contents)
   end
 
   def destroy
