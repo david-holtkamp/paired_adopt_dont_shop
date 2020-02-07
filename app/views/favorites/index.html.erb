@@ -1,0 +1,8 @@
+<% @pets.each do |pet| %>
+  <div class="card" id="pet-<%= pet.id %>">
+    <%= link_to 'Remove from Favorites', "/favorites/#{pet.id}", method: :delete, class: "right small" %><br>
+
+    <h3>Name: <%= link_to(pet.name, "pets/#{pet.id}", class: "big name") %></h3>
+    <p><%= image_tag(pet.image) %></p>
+  </div>
+<% end %>
