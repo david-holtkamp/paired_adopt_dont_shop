@@ -16,4 +16,8 @@ class Favorites
   def delete_pet(id)
     @contents.delete(id.to_s)
   end
+
+  def reset
+    @contents = Array.new
+  end
 end
