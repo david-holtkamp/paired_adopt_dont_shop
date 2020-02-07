@@ -12,4 +12,8 @@ class Favorites
   def total_count
     @contents.length
   end
+
+  def delete_pet(id)
+    @contents.delete(id.to_s)
+  end
 end
