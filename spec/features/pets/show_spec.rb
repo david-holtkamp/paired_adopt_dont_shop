@@ -26,7 +26,7 @@ RSpec.describe "As a visitor:" do
         sex: "female",
         shelter: @dog_city)
 
-      visit "pets/#{@pet_1.id}"
+      visit "/pets/#{@pet_1.id}"
     end
 
     it "I can see the info of the pet" do
