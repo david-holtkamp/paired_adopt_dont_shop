@@ -1,4 +1,5 @@
 <%= "You have no favorited pets." if @pets.empty? %>
+<%= link_to 'Apply for Pets', "/applications/new", class: "left small" %><br>
 <%= link_to 'Remove All Favorited Pets', "/all_favorites/", method: :delete, class: "right small" %><br>
 <% @pets.each do |pet| %>
   <div class="card" id="pet-<%= pet.id %>">
