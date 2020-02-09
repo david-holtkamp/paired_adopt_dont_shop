@@ -8,3 +8,10 @@
     <p><%= image_tag(pet.image) %></p>
   </div>
 <% end %>
+
+<h3>Pets with Applications</h3>
+<div id="pets-with-applications">
+    <% @pets_with_applications.each do |pet| %>
+      <%= link_to pet.name, "/pets/#{pet.id}" %>
+    <% end %>
+</div>
