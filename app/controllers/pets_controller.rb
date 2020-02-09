@@ -4,7 +4,9 @@ class PetsController < ApplicationController
   end
 
   def index
-    @pets = Pet.all
+    @pets = Pet.all.sort_by_status if params[:adoptable].nil?
+    @pets = Pet.adoptable if params[:adoptable] == "true"
+    @pets = Pet.pending if params[:adoptable] == "false"
   end
 
   def show
