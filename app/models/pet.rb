@@ -9,11 +9,11 @@ class Pet < ApplicationRecord
   end
 
   def self.adoptable
-    Pet.where(status: "Adoptable").order(:id)
+    Pet.where(status: "Adoptable")
   end
 
   def self.pending
-    Pet.where(status: "Pending").order(:id)
+    Pet.where(status: "Pending")
   end
 
   def self.applied_for

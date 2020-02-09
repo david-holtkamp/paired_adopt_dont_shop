@@ -1,23 +1,12 @@
 <div class="content">
-  <h1>
-    Pets
-    <% if (params[:adoptable] == 'true') %>
-      <% pets = @pets.adoptable %>
-      (adoptable pets)
-    <% elsif (params[:adoptable] == 'false') %>
-      <% pets = @pets.pending %>
-      (pets pending adoption)
-    <% else %>
-      <% pets = @pets.sort_by_status %>
-    <% end %>
-  </h1>
+  <h1>Pets</h1>
   <p>
     <span class="spaced"><%= link_to('Show adoptable pets only', '/pets?adoptable=true') %></span>
     <%= link_to('Show pending pets only', '/pets?adoptable=false') %>
   </p>
-  <% pets.each do |pet| %>
+  <% @pets.each do |pet| %>
     <div class="card" id="pet-<%= pet.id %>">
-      <h3>Name: <%= link_to(pet.name, "pets/#{pet.id}", class: "big name") %></h3>
+      <h3>Name: <%= link_to(pet.name, "/pets/#{pet.id}", class: "big name") %></h3>
       <p><%= image_tag(pet.image) %></p>
       <p>Age: <span class='big'><%= pet.age %></span></p>
       <p>Sex: <span class='big'><%= pet.sex %></span></p>
