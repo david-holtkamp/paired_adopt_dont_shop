@@ -15,4 +15,8 @@ class Pet < ApplicationRecord
   def self.pending
     Pet.where(status: "Pending")
   end
+
+  def self.applied_for
+    Pet.distinct.joins(:application_pets)
+  end
 end
