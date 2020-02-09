@@ -8,10 +8,13 @@
     <% else %>
     <%= link_to 'Add to Favorites', "/favorites/#{@pet.id}", method: :patch, class: "right small" %><br>
     <% end %>
-    <p>Name: <%= @pet.name %></p>
-    <p>Description: <%= @pet.description %></p>
-    <p>Age: <%= @pet.age %></p>
-    <p>Sex: <%= @pet.sex %></p>
-    <p>Status: <%= @pet.status %></p><br><br>
+    <p id="name">Name: <%= @pet.name %></p>
+    <p id="description">Description: <%= @pet.description %></p>
+    <p id="age">Age: <%= @pet.age %></p>
+    <p id="sex">Sex: <%= @pet.sex %></p>
+    <p id="status">Status: <%= @pet.status %></p><br><br>
+    <% if @pet.status == "Pending" %>
+      <p id="hold">On hold for <%= @pet.adopter %></p>
+    <% end %>
   </div>
 </div>

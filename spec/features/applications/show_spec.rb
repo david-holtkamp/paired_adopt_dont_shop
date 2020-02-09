@@ -41,11 +41,10 @@ RSpec.describe "As a visitor:" do
         phone_number: "303-210-2301",
         description: "Just a regular guy.")
       @app_1.pets << [@pet_1, @pet_2, @pet_3]
-
-      visit "/applications/#{@app_1.id}"
     end
 
     it "I can see an application's information" do
+      visit "/applications/#{@app_1.id}"
       expect(page).to have_content("Name: #{@app_1.name}")
       expect(page).to have_content("Address: #{@app_1.address}")
       expect(page).to have_content("City: #{@app_1.city}")
@@ -57,6 +56,49 @@ RSpec.describe "As a visitor:" do
       expect(page).to have_link(@pet_1.name)
       expect(page).to have_link(@pet_2.name)
       expect(page).to have_link(@pet_3.name)
+    end
+
+    it "I can approve a pet's application" do
+      visit "/pets/#{@pet_1.id}"
+      within("#status") { expect(page).to have_content("Status: Adoptable") }
+      expect(page).to_not have_css("#hold")
+
+      visit "/pets/#{@pet_2.id}"
+      within("#status") { expect(page).to have_content("Status: Adoptable") }
+      expect(page).to_not have_css("#hold")
+
+      visit "/pets/#{@pet_3.id}"
+      within("#status") { expect(page).to have_content("Status: Adoptable") }
+      expect(page).to_not have_css("#hold")
+
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@pet_1.id}") { click_link('Approve Application')}
+
+      expect(current_path).to eq("/pets/#{@pet_1.id}")
+      within("#status") { expect(page).to have_content("Status: Pending") }
+      within("#hold") { expect(page).to have_content("On hold for #{@app_1.name}") }
+
+      visit "/pets/#{@pet_2.id}"
+      within("#status") { expect(page).to have_content("Status: Adoptable") }
+      expect(page).to_not have_css("#hold")
+
+      visit "/pets/#{@pet_3.id}"
+      within("#status") { expect(page).to have_content("Status: Adoptable") }
+      expect(page).to_not have_css("#hold")
+
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@pet_2.id}") { click_link('Approve Application')}
+
+      expect(current_path).to eq("/pets/#{@pet_2.id}")
+      within("#status") { expect(page).to have_content("Status: Pending") }
+      within("#hold") { expect(page).to have_content("On hold for #{@app_1.name}") }
+
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@pet_3.id}") { click_link('Approve Application')}
+
+      expect(current_path).to eq("/pets/#{@pet_3.id}")
+      within("#status") { expect(page).to have_content("Status: Pending") }
+      within("#hold") { expect(page).to have_content("On hold for #{@app_1.name}") }
     end
   end
 end

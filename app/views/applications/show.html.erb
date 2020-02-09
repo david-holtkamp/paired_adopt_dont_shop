@@ -9,5 +9,8 @@
 
 <p>Pets On Application:</p>
 <% @application.pets.each do |pet| %>
-  <%= link_to(pet.name, "/pets/#{pet.id}") %>
+  <section id="pet-<%= pet.id %>">
+    <%= link_to(pet.name, "/pets/#{pet.id}") %>
+    - <%= link_to("Approve Application", "/applications/#{@application.id}/pets/#{pet.id}", method: :patch) %>
+  </section>
 <% end %>

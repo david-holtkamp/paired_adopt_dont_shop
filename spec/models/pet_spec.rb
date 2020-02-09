@@ -115,5 +115,14 @@ RSpec.describe Pet, type: :model do
 
       expect(Pet.applied_for).to eq([@p1, @p2])
     end
+
+    it "adopter" do
+      app = Application.create!(name: "Joe", address: "12879 Maple St", city: "Denver", state: "CO", zip: "80211", phone_number: "202-131-5131", description: "I have snacks!")
+      ApplicationPet.create!(application: app, pet: @a1)
+      visit "/applications/#{app.id}"
+      click_link "Approve Application"
+
+      expect(@a1.adopter).to eq(app.name)
+    end
   end
 end
