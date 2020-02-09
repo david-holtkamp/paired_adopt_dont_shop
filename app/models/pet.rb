@@ -9,10 +9,14 @@ class Pet < ApplicationRecord
   end
 
   def self.adoptable
-    Pet.where(status: "Adoptable")
+    Pet.where(status: "Adoptable").order(:id)
   end
 
   def self.pending
-    Pet.where(status: "Pending")
+    Pet.where(status: "Pending").order(:id)
+  end
+
+  def self.applied_for
+    Pet.distinct.joins(:application_pets).order(:id)
   end
 end
