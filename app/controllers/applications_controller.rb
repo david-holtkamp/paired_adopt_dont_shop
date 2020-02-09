@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.new(application_params)
-    if application.save
+    if application.save   #possible poro refactor opportunity?
       application_pets = favorites.contents.find_all do |pet_id|
         params.keys.include?("pet_id-#{pet_id}")
       end
