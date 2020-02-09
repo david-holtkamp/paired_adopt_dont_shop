@@ -1,8 +1,8 @@
 <h1>New Application Form</h1>
 <%= form_tag("/applications") do %>
 <% @pets.each do |pet| %>
-  <p><%= check_box_tag "pet_id-#{pet.id}", "#{pet.id}" %>
-  <%= pet.name %></p>
+  <p id="checkbox-<%= pet.id %>"><%= check_box_tag "applied_for[]", pet.id %>
+  <%= label_tag pet.name %></p>
 <% end %>
   <%= label_tag :name %><br>
   <%= text_field_tag :name %><br><br>

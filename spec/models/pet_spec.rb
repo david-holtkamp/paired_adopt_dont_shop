@@ -97,12 +97,12 @@ RSpec.describe Pet, type: :model do
       click_link("Apply for Pets")
 
       expect(current_path).to eq("/applications/new")
-      expect(page).to have_css("#pet_id-#{@p1.id}")
-      expect(page).to have_css("#pet_id-#{@p2.id}")
-      expect(page).to have_css("#pet_id-#{@p3.id}")
+      expect(page).to have_css("#checkbox-#{@p1.id}")
+      expect(page).to have_css("#checkbox-#{@p2.id}")
+      expect(page).to have_css("#checkbox-#{@p3.id}")
 
-      check "pet_id-#{@p1.id}"
-      check "pet_id-#{@p2.id}"
+      within("#checkbox-#{@p1.id}") {check "applied_for_"}
+      within("#checkbox-#{@p2.id}") {check "applied_for_"}
 
       fill_in 'Name', with: app_info[:name]
       fill_in 'Address', with: app_info[:name]

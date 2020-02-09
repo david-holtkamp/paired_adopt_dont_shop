@@ -45,11 +45,11 @@ RSpec.describe "As a visitor:" do
       click_link("Apply for Pets")
 
       expect(current_path).to eq("/applications/new")
-      expect(page).to have_css("#pet_id-#{@pet_1.id}")
-      expect(page).to have_css("#pet_id-#{@pet_2.id}")
-      expect(page).to_not have_css("#pet_id-#{@pet_3.id}")
+      expect(page).to have_css("#checkbox-#{@pet_1.id}")
+      expect(page).to have_css("#checkbox-#{@pet_2.id}")
+      expect(page).to_not have_css("#checkbox-#{@pet_3.id}")
 
-      check "pet_id-#{@pet_1.id}"
+      within("#checkbox-#{@pet_1.id}") { check "applied_for_" }
 
       fill_in 'Name', with: app_info[:name]
       fill_in 'Address', with: app_info[:name]
@@ -78,11 +78,11 @@ RSpec.describe "As a visitor:" do
       click_link("Apply for Pets")
 
       expect(current_path).to eq("/applications/new")
-      expect(page).to have_css("#pet_id-#{@pet_1.id}")
-      expect(page).to have_css("#pet_id-#{@pet_2.id}")
-      expect(page).to_not have_css("#pet_id-#{@pet_3.id}")
+      expect(page).to have_css("#checkbox-#{@pet_1.id}")
+      expect(page).to have_css("#checkbox-#{@pet_2.id}")
+      expect(page).to_not have_css("#checkbox-#{@pet_3.id}")
 
-      check "pet_id-#{@pet_1.id}"
+      within("#checkbox-#{@pet_1.id}") { check "applied_for_" }
 
       fill_in 'Name', with: app_info[:name]
       fill_in 'Address', with: app_info[:name]
