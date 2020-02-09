@@ -17,7 +17,7 @@
   </p>
   <% pets.each do |pet| %>
     <div class="card" id="pet-<%= pet.id %>">
-      <h3>Name: <%= link_to(pet.name, "pets/#{pet.id}", class: "big name") %></h3>
+      <h3>Name: <%= link_to(pet.name, "/pets/#{pet.id}", class: "big name") %></h3>
       <p><%= image_tag(pet.image) %></p>
       <p>Age: <span class='big'><%= pet.age %></span></p>
       <p>Sex: <span class='big'><%= pet.sex %></span></p>
