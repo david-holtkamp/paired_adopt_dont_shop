@@ -82,5 +82,38 @@ RSpec.describe Pet, type: :model do
     it "pending" do
       expect(Pet.pending).to eq([@p1, @p2, @p3])
     end
+
+    it "pets_with_applications" do
+      app_info = {name: "Joe", address: "12879 Maple St", city: "Denver", state: "CO", zip: "80211", phone_number: "202-131-5131", description: "I have snacks!"}
+      visit "/pets/#{@p1.id}"
+      click_link("Add to Favorites")
+      visit "/pets/#{@p2.id}"
+      click_link("Add to Favorites")
+      visit "/pets/#{@p3.id}"
+      click_link("Add to Favorites")
+
+      visit '/favorites'
+
+      click_link("Apply for Pets")
+
+      expect(current_path).to eq("/applications/new")
+      expect(page).to have_css("#pet_id-#{@p1.id}")
+      expect(page).to have_css("#pet_id-#{@p2.id}")
+      expect(page).to have_css("#pet_id-#{@p3.id}")
+
+      check "pet_id-#{@p1.id}"
+      check "pet_id-#{@p2.id}"
+
+      fill_in 'Name', with: app_info[:name]
+      fill_in 'Address', with: app_info[:name]
+      fill_in 'City', with: app_info[:city]
+      fill_in 'State', with: app_info[:state]
+      fill_in 'Zip', with: app_info[:zip]
+      fill_in 'Phone number', with: app_info[:phone_number]
+      fill_in "Description", with: app_info[:description]
+      click_button "Submit Application"
+
+      expect(Pet.applied_for).to eq([@p1, @p2])
+    end
   end
 end
