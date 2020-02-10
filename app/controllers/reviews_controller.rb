@@ -5,12 +5,7 @@ class ReviewsController < ApplicationController
 
   def create
     review = Review.new(review_params)
-    if review.save
-      redirect_to "/shelters/#{params[:shelter_id]}"
-    else
-      flash[:notice] = "You need to fill in a title, rating, and content in order to submit a shelter review"
-      render :new
-    end
+    attempt_create(review)
   end
 
   def edit
@@ -19,21 +14,12 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:review_id])
-    @review.title = params[:title]
-    @review.rating = params[:rating]
-    @review.content = params[:content]
-    @review.image = params[:image]
-    if @review.save
-      redirect_to "/shelters/#{params[:shelter_id]}"
-    else
-      flash[:notice] = "You need to fill in a title, rating, and content in order to edit a shelter review"
-      render :edit 
-    end
+    update_params
+    @review.save ? redirect_to("/shelters/#{params[:shelter_id]}") : invalid_edit
   end
 
   def destroy
     Review.delete(params[:review_id])
-
     redirect_to "/shelters/#{params[:shelter_id]}"
   end
 
@@ -41,5 +27,26 @@ class ReviewsController < ApplicationController
 
     def review_params
       params.permit(:title, :rating, :content, :image, :shelter_id)
+    end
+
+    def update_params
+      @review.title = params[:title]
+      @review.rating = params[:rating]
+      @review.content = params[:content]
+      @review.image = params[:image]
+    end
+
+    def invalid_edit
+      flash[:notice] = "You need to fill in a title, rating, and content in order to edit a shelter review"
+      render :edit
+    end
+
+    def attempt_create(review)
+      if review.save
+        redirect_to "/shelters/#{params[:shelter_id]}"
+      else
+        flash[:notice] = "You need to fill in a title, rating, and content in order to submit a shelter review"
+        render :new
+      end
     end
 end

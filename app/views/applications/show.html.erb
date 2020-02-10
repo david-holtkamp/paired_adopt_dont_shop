@@ -15,7 +15,7 @@
       - <%= link_to("Approve Application", "/applications/#{@application.id}/pets/#{pet.id}?approval=approve", method: :patch) %>
     <% elsif pet.status == "Pending" %>
       - Pending Adoption
-      <% if @application.application_pets.find_by(pet_id: pet.id).approved %>
+      <% if @application.approved_for_pet(pet) %>
         - <%= link_to("Cancel Approval", "/applications/#{@application.id}/pets/#{pet.id}?approval=cancel", method: :patch) %>
       <% end %>
     <% end %>

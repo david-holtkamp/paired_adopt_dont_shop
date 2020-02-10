@@ -24,8 +24,6 @@ class Pet < ApplicationRecord
     approved_app = application_pets.find_by(approved: true)
     if approved_app
       approved_app.application.name
-    else
-      "nobody"
     end
   end
 end
