@@ -3,12 +3,11 @@
     <%= image_tag(@pet.image) %>
     <%= link_to 'Update Pet', "/pets/#{@pet.id}/edit", class: "left small" %>
     <%= link_to 'Delete Pet', "/pets/#{@pet.id}", method: :delete, class: "right small" %><br>
-    <% if favorites.contents.include?(@pet.id.to_s) %>
-    <%= link_to 'Remove from Favorites', "/favorites/#{@pet.id}", method: :delete, class: "right small" %><br>
-    <% else %>
-    <%= link_to 'Add to Favorites', "/favorites/#{@pet.id}", method: :patch, class: "right small" %><br>
     <%= link_to "View All Applications for #{@pet.name}", "/pets/#{@pet.id}/applications", class: "right small" %><br>
-
+    <% if favorites.contents.include?(@pet.id.to_s) %>
+      <%= link_to 'Remove from Favorites', "/favorites/#{@pet.id}", method: :delete, class: "right small" %><br>
+    <% else %>
+      <%= link_to 'Add to Favorites', "/favorites/#{@pet.id}", method: :patch, class: "right small" %><br>
     <% end %>
     <p id="name">Name: <%= @pet.name %></p>
     <p id="description">Description: <%= @pet.description %></p>
