@@ -39,12 +39,12 @@ RSpec.describe "As a visitor:" do
       click_button("Update Pet")
 
       expect(current_path).to eq("/pets/#{pet_1.id}")
-      expect(page).to have_css("img[src*='#{updated_info[:image]}']", count: 1)
-      expect(page).to have_content(updated_info[:name], count: 1)
-      expect(page).to have_content(updated_info[:description], count: 1)
-      expect(page).to have_content(updated_info[:age], count: 1)
-      expect(page).to have_content(updated_info[:sex], count: 1)
-      expect(page).to have_content("Adoptable", count: 1)
+      expect(page).to have_css("img[src*='#{updated_info[:image]}']")
+      expect(page).to have_content(updated_info[:name])
+      expect(page).to have_content(updated_info[:description])
+      expect(page).to have_content(updated_info[:age])
+      expect(page).to have_content(updated_info[:sex])
+      expect(page).to have_content("Adoptable")
 
       expect(page).to_not have_css("img[src*='#{pet_2.image}']")
       expect(page).to_not have_content(pet_2.name)
