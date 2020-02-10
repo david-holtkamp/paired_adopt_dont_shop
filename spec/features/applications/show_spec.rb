@@ -116,12 +116,44 @@ RSpec.describe "As a visitor:" do
       within("#pet-#{@pet_1.id}") { click_link('Approve Application')}
 
       visit "/applications/#{@app_1.id}"
-      within("#pet-#{@pet_1.id}") { expect(page).to_not have_link("Approve Application")}
-      within("#pet-#{@pet_1.id}") { expect(page).to have_content("Pending adoption")}
+      within("#pet-#{@pet_1.id}") { expect(page).to_not have_link('Approve Application')}
+      within("#pet-#{@pet_1.id}") { expect(page).to have_content('Pending Adoption')}
+
+      visit "/applications/#{app_2.id}"
+      within("#pet-#{@pet_1.id}") { expect(page).to_not have_link('Approve Application')}
+      within("#pet-#{@pet_1.id}") { expect(page).to have_content('Pending Adoption')}
+    end
+
+    it "I can cancel approval of an application" do
+      app_2 = Application.create!(
+        name: "Slow Poke",
+        address: "492 Slow Avenue",
+        city: "Slow City",
+        state: "CO",
+        zip: "01201",
+        phone_number: "303-147-8324",
+        description: "Was too slow for the pup...")
+      app_2.pets << @pet_1
+
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@pet_1.id}") { click_link('Approve Application')}
 
       visit "/applications/#{app_2.id}"
       within("#pet-#{@pet_1.id}") { expect(page).to_not have_link("Approve Application")}
-      within("#pet-#{@pet_1.id}") { expect(page).to have_content("Pending adoption")}
+      within("#pet-#{@pet_1.id}") { expect(page).to_not have_link("Cancel Approval")}
+
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@pet_1.id}") { expect(page).to_not have_link('Approve Application')}
+
+      within("#pet-#{@pet_1.id}") { click_link('Cancel Approval')}
+      expect(current_path).to eq("/applications/#{@app_1.id}")
+      within("#pet-#{@pet_1.id}") { expect(page).to have_link('Approve Application')}
+
+      visit "/applications/#{app_2.id}"
+      within("#pet-#{@pet_1.id}") { expect(page).to have_link('Approve Application')}
+
+      visit "/pets/#{@pet_1.id}"
+      within("#status") { expect(page).to have_content('Status: Adoptable')}
     end
   end
 end
