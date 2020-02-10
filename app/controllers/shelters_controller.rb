@@ -12,7 +12,6 @@ class SheltersController < ApplicationController
 
   def create
     Shelter.create(shelter_params)
-
     redirect_to '/shelters'
   end
 
@@ -23,7 +22,6 @@ class SheltersController < ApplicationController
   def update
     shelter = Shelter.find(params[:id])
     shelter.update(shelter_params)
-
     redirect_to "/shelters/#{shelter.id}"
   end
 
@@ -31,7 +29,6 @@ class SheltersController < ApplicationController
     shelter = Shelter.find(params[:id])
     shelter.pets.destroy_all
     Shelter.delete(shelter.id)
-
     redirect_to '/shelters'
   end
 
