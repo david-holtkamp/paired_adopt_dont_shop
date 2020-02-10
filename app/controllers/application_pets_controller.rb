@@ -7,11 +7,11 @@ class ApplicationPetsController < ApplicationController
   private
 
   def attempt_approve(application_pet)
-    fail_approve if application_pet.pet.status == "Pending"
+    fail_approve(application_pet) if application_pet.pet.status == "Pending"
     approve(application_pet) if application_pet.pet.status == "Adoptable"
   end
 
-  def fail_approve
+  def fail_approve(application_pet)
     flash[:notice] = "#{application_pet.pet.name} is already pending adoption."
     redirect_back(fallback_location: "/pets")
   end
