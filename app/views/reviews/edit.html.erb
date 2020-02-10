@@ -1,14 +1,12 @@
-<div class="content">
-  <h3>Update review:</h3>
-  <%= form_tag("/shelters/#{@review.shelter.id}/reviews/#{@review.id}", method: :patch) do %>
-    <%= label_tag :title %><br>
-    <%= text_field_tag :title, @review.title %><br><br>
-    <%= label_tag :rating %><br>
-    <%= text_field_tag :rating, @review.rating %><br><br>
-    <%= label_tag :content %><br>
-    <%= text_area_tag :content, @review.content %><br><br>
-    <%= label_tag :image %><br>
-    <%= text_field_tag :image, @review.image %><br><br>
-    <%= submit_tag "Update Review" %>
-  <% end %>
-</div>
+<h3>Update review:</h3>
+<%= form_tag("/shelters/#{@review.shelter.id}/reviews/#{@review.id}", method: :patch) do %>
+  <%= label_tag :title %><br>
+  <%= text_field_tag :title, @review.title %><br><br>
+  <%= label_tag :rating %><br>
+  <%= text_field_tag :rating, @review.rating %><br><br>
+  <%= label_tag :content %><br>
+  <%= text_area_tag :content, @review.content %><br><br>
+  <%= label_tag :image %><br>
+  <%= text_field_tag :image, @review.image %><br><br>
+  <%= submit_tag "Update Review" %>
+<% end %>

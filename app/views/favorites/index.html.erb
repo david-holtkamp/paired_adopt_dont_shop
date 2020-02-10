@@ -1,6 +1,5 @@
-<%= "You have no favorited pets." if @pets.empty? %>
-<%= link_to 'Apply for Pets', "/applications/new", class: "left small" %><br>
-<%= link_to 'Remove All Favorited Pets', "/all_favorites/", method: :delete, class: "right small" %><br>
+<%= link_to 'Apply for Pets', "/applications/new", class: "left" %>
+<%= link_to 'Remove All Favorited Pets', "/all_favorites/", method: :delete, class: "right" %><br><br>
 <% @pets.each do |pet| %>
   <div class="card" id="pet-<%= pet.id %>">
     <%= link_to 'Remove from Favorites', "/favorites/#{pet.id}", method: :delete, class: "right small" %><br>
@@ -8,10 +7,16 @@
     <p><%= image_tag(pet.image) %></p>
   </div>
 <% end %>
-
-<h3>Pets with Applications</h3>
-<div id="pets-with-applications">
-    <% @pets_with_applications.each do |pet| %>
-      <%= link_to pet.name, "/pets/#{pet.id}" %>
-    <% end %>
-</div>
+<%= "You have no favorited pets." if @pets.empty? %>
+<p>
+<section class="card across bigger"><br>
+  Pets with Applications
+  <div id="pets-with-applications">
+    <ul>
+      <% @pets_with_applications.each do |pet| %>
+        <li><%= link_to pet.name, "/pets/#{pet.id}", class: :small %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+</p>

@@ -1,27 +1,25 @@
-<div class="content">
-  <p><%= link_to 'New Review', "/shelters/#{@shelter.id}/reviews/new" %></p>
-  <div class="card show">
-    <%= link_to 'Update Shelter', "/shelters/#{@shelter.id}/edit", class: "left small" %>
-    <%= link_to 'Delete Shelter', "/shelters/#{@shelter.id}/", method: :delete, class: "right small" %><br>
-    <p>Name: <%= @shelter.name %></p>
-    <p>Address: <%= @shelter.address %></p>
-    <p>City: <%= @shelter.city %></p>
-    <p>State: <%= @shelter.state %></p>
-    <p>Zip: <%= @shelter.zip %></p>
-    <p><%= link_to("View this shelter's pets", "/shelters/#{@shelter.id}/pets", class: "name") %></p>
-  </div>
-  <% @shelter.reviews.each do |review| %>
-    <div class="card show" id="review-<%= review.id %>">
-      <p>Title: <%= review.title %></p>
-      <p>Rating: <%= review.rating %></p>
-      <p>Content: <%= review.content %></p>
-      <% if review.image %>
-        <% unless review.image == '' %>
-          <p>Image: <%= image_tag(review.image) %></p><br>
-        <% end %>
-      <% end %>
-      <%= link_to("Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit") %>
-      <%= link_to 'Delete Review', "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete %>
-    </div>
-  <% end %>
+<p><%= link_to 'New Review', "/shelters/#{@shelter.id}/reviews/new" %></p>
+<div class="card show">
+  <%= link_to 'Update Shelter', "/shelters/#{@shelter.id}/edit", class: "left small" %>
+  <%= link_to 'Delete Shelter', "/shelters/#{@shelter.id}/", method: :delete, class: "right small" %><br>
+  <p>Name: <%= @shelter.name %></p>
+  <p>Address: <%= @shelter.address %></p>
+  <p>City: <%= @shelter.city %></p>
+  <p>State: <%= @shelter.state %></p>
+  <p>Zip: <%= @shelter.zip %></p>
+  <p><%= link_to("View this shelter's pets", "/shelters/#{@shelter.id}/pets", class: "name") %></p>
 </div>
+<% @shelter.reviews.each do |review| %>
+  <div class="card show" id="review-<%= review.id %>">
+    <p>Title: <%= review.title %></p>
+    <p>Rating: <%= review.rating %></p>
+    <p>Content: <%= review.content %></p>
+    <% if review.image %>
+      <% unless review.image == '' %>
+        <p>Image: <%= image_tag(review.image) %></p><br>
+      <% end %>
+    <% end %>
+    <%= link_to("Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit") %>
+    <%= link_to 'Delete Review', "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete %>
+  </div>
+<% end %>

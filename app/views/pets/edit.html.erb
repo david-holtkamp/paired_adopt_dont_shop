@@ -1,16 +1,14 @@
-<div class="content">
-  <h3>Update pet:</h3>
-  <%= form_tag("/pets/#{@pet.id}", method: :patch) do %>
-    <%= label_tag :image %><br>
-    <%= text_field_tag :image, @pet.image %><br><br>
-    <%= label_tag :name %><br>
-    <%= text_field_tag :name, @pet.name %><br><br>
-    <%= label_tag :description %><br>
-    <%= text_area_tag :description, @pet.description %><br><br>
-    <%= label_tag :age %><br>
-    <%= text_field_tag :age, @pet.age %><br><br>
-    <%= label_tag :sex %><br>
-    <%= text_field_tag :sex, @pet.sex %><br><br>
-    <%= submit_tag "Update Pet" %>
-  <% end %>
-</div>
+<h3>Update pet:</h3>
+<%= form_tag("/pets/#{@pet.id}", method: :patch) do %>
+  <%= label_tag :image %><br>
+  <%= text_field_tag :image, @pet.image %><br><br>
+  <%= label_tag :name %><br>
+  <%= text_field_tag :name, @pet.name %><br><br>
+  <%= label_tag :description %><br>
+  <%= text_area_tag :description, @pet.description %><br><br>
+  <%= label_tag :age %><br>
+  <%= text_field_tag :age, @pet.age %><br><br>
+  <%= label_tag :sex %><br>
+  <%= text_field_tag :sex, @pet.sex %><br><br>
+  <%= submit_tag "Update Pet" %>
+<% end %>

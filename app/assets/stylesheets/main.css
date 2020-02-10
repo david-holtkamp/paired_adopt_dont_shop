@@ -142,10 +142,18 @@ nav a:hover {
   float: right;
 }
 
+.center {
+  text-align: center;
+}
+
 .delete {
   color: red;
 }
 
 .spaced {
   margin-right: 15px;
+}
+
+.across {
+  width: 80%
 }

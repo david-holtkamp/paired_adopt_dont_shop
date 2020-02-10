@@ -1,18 +1,16 @@
-<div class="content">
-  <h1>Pets</h1>
-  <p>
-    <span class="spaced"><%= link_to('Show adoptable pets only', '/pets?adoptable=true') %></span>
-    <%= link_to('Show pending pets only', '/pets?adoptable=false') %>
-  </p>
-  <% @pets.each do |pet| %>
-    <div class="card" id="pet-<%= pet.id %>">
-      <h3>Name: <%= link_to(pet.name, "/pets/#{pet.id}", class: "big name") %></h3>
-      <p><%= image_tag(pet.image) %></p>
-      <p>Age: <span class='big'><%= pet.age %></span></p>
-      <p>Sex: <span class='big'><%= pet.sex %></span></p>
-      <p>Shelter: <%= link_to(pet.shelter.name, "/shelters/#{pet.shelter.id}", class: "big") %></p><br>
-      <%= link_to 'Update Pet', "/pets/#{pet.id}/edit", class: "small left" %>
-      <%= link_to 'Delete Pet', "/pets/#{pet.id}", method: :delete, class: "small right delete" %>
-    </div>
-  <% end %>
-</div>
+<h1>Pets</h1>
+<p>
+  <span class="spaced"><%= link_to('Show adoptable pets only', '/pets?adoptable=true') %></span>
+  <%= link_to('Show pending pets only', '/pets?adoptable=false') %>
+</p>
+<% @pets.each do |pet| %>
+  <div class="card" id="pet-<%= pet.id %>">
+    <h3>Name: <%= link_to(pet.name, "/pets/#{pet.id}", class: "big name") %></h3>
+    <p><%= image_tag(pet.image) %></p>
+    <p>Age: <span class='big'><%= pet.age %></span></p>
+    <p>Sex: <span class='big'><%= pet.sex %></span></p>
+    <p>Shelter: <%= link_to(pet.shelter.name, "/shelters/#{pet.shelter.id}", class: "big") %></p><br>
+    <%= link_to 'Update Pet', "/pets/#{pet.id}/edit", class: "small left" %>
+    <%= link_to 'Delete Pet', "/pets/#{pet.id}", method: :delete, class: "small right delete" %>
+  </div>
+<% end %>
