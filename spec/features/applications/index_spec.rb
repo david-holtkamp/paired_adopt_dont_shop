@@ -25,6 +25,14 @@ RSpec.describe "As a visitor:" do
         age: "4 years old",
         sex: "female",
         shelter: @dog_city)
+      @pet_3 = Pet.create!(
+        image: "https://cdn.mos.cms.futurecdn.net/g8PyY6xAhcndpQLLSkdPf-320-80.jpg",
+        name: "Capy'n Hook",
+        description: "dread of the seven seas",
+        age: "400 years old?",
+        sex: "male",
+        shelter: @dog_city)
+
       @app_1 = Application.create({
         name: "David H",
         address: "1234 julian st.",
@@ -47,6 +55,7 @@ RSpec.describe "As a visitor:" do
         @app_1.pets << [@pet_1, @pet_2]
         @app_2.pets << @pet_1
     end
+
     it "I can view all applications for this pet" do
       visit "/pets/#{@pet_1.id}"
 
@@ -74,6 +83,18 @@ RSpec.describe "As a visitor:" do
       click_link "#{@app_1.name}"
 
       expect(current_path).to eq("/applications/#{@app_1.id}")
+    end
+
+    it "I get a message when there are no applications for a pet" do
+      visit "/pets/#{@pet_3.id}"
+
+      expect(page).to have_link("View All Applications for #{@pet_3.name}")
+
+      click_link "View All Applications for #{@pet_3.name}"
+
+      expect(current_path).to eq("/pets/#{@pet_3.id}/applications")
+
+      expect(page).to have_content("#{@pet_3.name} has no active applications. #sadface")
     end
   end
 end
