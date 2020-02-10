@@ -7,6 +7,8 @@
     <%= link_to 'Remove from Favorites', "/favorites/#{@pet.id}", method: :delete, class: "right small" %><br>
     <% else %>
     <%= link_to 'Add to Favorites', "/favorites/#{@pet.id}", method: :patch, class: "right small" %><br>
+    <%= link_to "View All Applications for #{@pet.name}", "/pets/#{@pet.id}/applications", class: "right small" %><br>
+
     <% end %>
     <p id="name">Name: <%= @pet.name %></p>
     <p id="description">Description: <%= @pet.description %></p>
