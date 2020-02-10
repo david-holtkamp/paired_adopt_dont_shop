@@ -22,6 +22,10 @@ ul {
   list-style-type: none;
 }
 
+ul.application {
+  list-style-type: disc;
+}
+
 nav {
   background: #FFB7B2;
   padding: 20px;
