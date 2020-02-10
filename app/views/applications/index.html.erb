@@ -1,0 +1,7 @@
+<h1>Applications for <%=@pet.name%></h1>
+
+<ul class='application'>
+<% @pet.applications.each do |application| %>
+    <li><%= link_to application.name, "/applications/#{application.id}" %></li><br>
+<% end  %>
+</ul>
