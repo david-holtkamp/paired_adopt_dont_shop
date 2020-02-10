@@ -1,22 +1,20 @@
-<div class="content">
-  <h1>
-    <%= link_to(@shelter.name, "/shelters/#{@shelter.id}", class: "name") %> - Pets
-    <%= "(total: #{@shelter.pet_count})" %>
-  </h1>
-  <p>
-    <span class="spaced"><%= link_to 'Create Pet', "/shelters/#{@shelter.id}/pets/new" %></span>
-    <span class="spaced"><%= link_to('Show adoptable pets only', "/shelters/#{@shelter.id}/pets?adoptable=true") %></span>
-    <%= link_to('Show pending pets only', "/shelters/#{@shelter.id}/pets?adoptable=false") %>
-  </p>
+<h1>
+  <%= link_to(@shelter.name, "/shelters/#{@shelter.id}", class: "name") %> - Pets
+  <%= "(total: #{@shelter.pet_count})" %>
+</h1>
+<p>
+  <span class="spaced"><%= link_to 'Create Pet', "/shelters/#{@shelter.id}/pets/new" %></span>
+  <span class="spaced"><%= link_to('Show adoptable pets only', "/shelters/#{@shelter.id}/pets?adoptable=true") %></span>
+  <%= link_to('Show pending pets only', "/shelters/#{@shelter.id}/pets?adoptable=false") %>
+</p>
 
-  <% @shelter_pets.each do |pet| %>
-    <div class="card" id="pet-<%= pet.id %>">
-      <h3>Name: <%= link_to(pet.name, "/pets/#{pet.id}", class: "big name") %></h3>
-      <p><%= image_tag(pet.image) %></p><br>
-      <p>Age: <span class='big'><%= pet.age %></span></p>
-      <p>Sex: <span class='big'><%= pet.sex %></span></p><br>
-      <%= link_to 'Update Pet', "/pets/#{pet.id}/edit", class: "small left" %>
-      <%= link_to 'Delete Pet', "/pets/#{pet.id}", method: :delete, class: "small right delete" %><br>
-    </div>
-  <% end %>
-</div>
+<% @shelter_pets.each do |pet| %>
+  <div class="card" id="pet-<%= pet.id %>">
+    <h3>Name: <%= link_to(pet.name, "/pets/#{pet.id}", class: "big name") %></h3>
+    <p><%= image_tag(pet.image) %></p><br>
+    <p>Age: <span class='big'><%= pet.age %></span></p>
+    <p>Sex: <span class='big'><%= pet.sex %></span></p><br>
+    <%= link_to 'Update Pet', "/pets/#{pet.id}/edit", class: "small left" %>
+    <%= link_to 'Delete Pet', "/pets/#{pet.id}", method: :delete, class: "small right delete" %><br>
+  </div>
+<% end %>
