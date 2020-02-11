@@ -24,7 +24,12 @@ class PetsController < ApplicationController
   end
 
   def destroy
-    Pet.delete(params[:id])
+    pet = Pet.find(params[:id])
+    if pet.status == "Pending"
+      flash[:notice] = "You cannot delete a pet with an approved application."
+    else
+      Pet.destroy(pet.id)
+    end
     redirect_to '/pets'
   end
 

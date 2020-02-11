@@ -40,5 +40,41 @@ RSpec.describe "As a visitor:" do
       expect(page).to_not have_content(pet_2.age)
       expect(page).to_not have_content(pet_2.sex)
     end
+
+    it "I cannot delete a pet with an approved application" do
+      dog_city = Shelter.create!(
+        name: "Dog City",
+        address: "1923 Dog Ln",
+        city: "Doggington",
+        state: "CO",
+        zip: "80414")
+      pet_1 = Pet.create(
+        image: "https://i.pinimg.com/originals/a9/cf/64/a9cf6473ca327409108ab02d15cc06b0.jpg",
+        name: "Snoopy",
+        description: "beagle pup eh",
+        age: "6 months old",
+        sex: "male",
+        shelter: dog_city)
+      app_1 = Application.create!(
+        name: "Guy",
+        address: "23 Guy St",
+        city: "Guy City",
+        state: "CO",
+        zip: "12345",
+        phone_number: "303-210-2301",
+        description: "Just a regular guy.")
+
+      app_1.pets << pet_1
+
+      visit "/applications/#{app_1.id}"
+      within("#pet-#{pet_1.id}") { click_link('Approve Application')}
+
+      visit "/pets/#{pet_1.id}"
+      click_link("Delete Pet")
+
+      expect(current_path).to eq("/pets")
+      expect(page).to have_content("You cannot delete a pet with an approved application.")
+      expect(page).to have_css("#pet-#{pet_1.id}")
+    end
   end
 end
