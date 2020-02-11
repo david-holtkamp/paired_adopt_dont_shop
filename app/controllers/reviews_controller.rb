@@ -37,7 +37,8 @@ class ReviewsController < ApplicationController
       if review.save
         redirect_to "/shelters/#{params[:shelter_id]}"
       else
-        flash[:notice] = "You need to fill in a title, rating, and content in order to submit a shelter review"
+        @shelter_id = params[:shelter_id]
+        flash.now[:notice] = "You need to fill in a title, rating, and content in order to submit a shelter review"
         render :new
       end
     end
