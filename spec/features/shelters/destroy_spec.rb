@@ -23,6 +23,7 @@ RSpec.describe "As a visitor:" do
       expect(page).to have_content("Name: #{shelter_1.name}")
       expect(page).to_not have_content(shelter_2.name)
     end
+
     it "I cannot delete a shelter unless there are no pending pets" do
       dog_city = Shelter.create!(
         name: "Dog City",
@@ -78,7 +79,9 @@ RSpec.describe "As a visitor:" do
 
       expect(page).to_not have_css("#pet-#{pet_1.id}")
     end
+
     it "I can delete a shelter and that will delete all its reviews" do
+
       shelter_2 = Shelter.create!(
         name: "delete me",
         address: "do",
@@ -112,6 +115,7 @@ RSpec.describe "As a visitor:" do
 
       expect(Review.first.title).to eq("eh")
       expect(Review.first.title).not_to eq("omg!!!")
+      expect(page).to_not have_content(dog_city.name)
     end
   end
 
