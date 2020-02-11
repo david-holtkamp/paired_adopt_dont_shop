@@ -78,6 +78,34 @@ RSpec.describe "As a visitor:" do
 
       expect(page).to_not have_css("#pet-#{pet_1.id}")
     end
+    it "I can delete a shelter and that will delete all its reviews" do
+      dog_city = Shelter.create!(
+        name: "Dog City",
+        address: "1923 Dog Ln",
+        city: "Doggington",
+        state: "CO",
+        zip: "80414")
+      img_review = Review.create!(
+        title: "omg!!!",
+        rating: 5,
+        content: "pets super amazin!!",
+        image: "https://cdn0.wideopenpets.com/wp-content/uploads/2016/04/valentines-8.jpg",
+        shelter: @shelter_1)
+      no_img_review = Review.create!(
+        title: "eh",
+        rating: 3,
+        content: "it's ok I guess",
+        shelter: @shelter_1)
+
+      dog_city.reviews << [img_review, no_img_review]
+
+      visit "/shelters"
+
+      within("#shelter-#{dog_city.id}") { click_link("Delete Shelter")}
+
+      expect(img_review).to eq(nil)
+      expect(no_img_review).to eq(nil)
+    end
   end
 
 end
