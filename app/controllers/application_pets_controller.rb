@@ -7,9 +7,13 @@ class ApplicationPetsController < ApplicationController
   private
 
   def attempt_approve(application_pet)
-    revoke(application_pet) if application_pet.pet.status == "Pending"
+    fail_approve(application_pet) if application_pet.pet.status == "Pending"
     approve(application_pet) if application_pet.pet.status == "Adoptable"
-    redirect_to "/pets/#{application_pet.pet.id}"
+  end
+
+  def fail_approve(application_pet)
+    flash[:notice] = "#{application_pet.pet.name} is already pending adoption."
+    redirect_back(fallback_location: "/pets")
   end
 
   def revoke(application_pet)
@@ -21,5 +25,6 @@ class ApplicationPetsController < ApplicationController
   def approve(application_pet)
     application_pet.update(approved: true)
     application_pet.pet.update(status: "Pending")
+    redirect_to "/pets/#{application_pet.pet.id}"
   end
 end
