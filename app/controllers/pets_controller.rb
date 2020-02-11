@@ -19,7 +19,9 @@ class PetsController < ApplicationController
 
   def update
     pet = Pet.find(params[:id])
-    pet.update(pet_params)
+    if !pet.update(pet_params)
+      flash[:notice] = "Failed to update pet: #{pet.errors.full_messages.to_sentence}"
+    end
     redirect_to "/pets/#{pet.id}"
   end
 
