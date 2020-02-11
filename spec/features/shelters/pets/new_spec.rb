@@ -46,5 +46,37 @@ RSpec.describe "As a visitor:" do
       expect(page).to have_content(new_pet_info[:age])
       expect(page).to have_content(new_pet_info[:sex])
     end
+
+    it 'I can not add a new pet without require fields filled out' do
+      dog_city = Shelter.create!(
+        name: "Dog City",
+        address: "1923 Dog Ln",
+        city: "Doggington",
+        state: "CO",
+        zip: "80414")
+      new_pet_info = {
+        image: "https://cdn.mos.cms.futurecdn.net/g8PyY6xAhcndpQLLSkdPf-320-80.jpg",
+        name: "Capy'n Hook",
+        description: "dread of the seven seas",
+        age: "400 years old?",
+        sex: "male"}
+
+      visit "/shelters/#{dog_city.id}/pets"
+      click_link('Create Pet')
+
+      expect(current_path).to eq("/shelters/#{dog_city.id}/pets/new")
+
+      fill_in 'name', with: new_pet_info[:name]
+      fill_in 'age', with: new_pet_info[:age]
+      fill_in 'sex', with: new_pet_info[:sex]
+      click_button('Create Pet')
+
+      expect(current_path).to eq("/shelters/#{dog_city.id}/pets")
+      expect(page).to have_content("Failed to create pet: Image can't be blank and Description can't be blank")
+      expect(page).to_not have_css("img[src*='#{new_pet_info[:image]}']")
+      expect(page).to_not have_content(new_pet_info[:name])
+      expect(page).to_not have_content(new_pet_info[:age])
+      expect(page).to_not have_content(new_pet_info[:sex])
+    end
   end
 end
