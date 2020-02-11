@@ -76,5 +76,33 @@ RSpec.describe "As a visitor:" do
       expect(page).to have_content("You cannot delete a pet with an approved application.")
       expect(page).to have_css("#pet-#{pet_1.id}")
     end
+
+    it "I don't see deleted pets in my favorites" do
+      dog_city = Shelter.create!(
+        name: "Dog City",
+        address: "1923 Dog Ln",
+        city: "Doggington",
+        state: "CO",
+        zip: "80414")
+      pet_1 = Pet.create(
+        image: "https://i.pinimg.com/originals/a9/cf/64/a9cf6473ca327409108ab02d15cc06b0.jpg",
+        name: "Snoopy",
+        description: "beagle pup eh",
+        age: "6 months old",
+        sex: "male",
+        shelter: dog_city)
+
+      visit "/pets/#{pet_1.id}"
+      click_link("Add to Favorites")
+
+      visit '/favorites'
+      expect(page).to have_css("#pet-#{pet_1.id}")
+
+      visit "/pets/#{pet_1.id}"
+      click_link("Delete Pet")
+
+      visit '/favorites'
+      expect(page).to_not have_css("#pet-#{pet_1.id}")
+    end
   end
 end

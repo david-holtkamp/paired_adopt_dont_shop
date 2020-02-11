@@ -29,6 +29,7 @@ class PetsController < ApplicationController
       flash[:notice] = "You cannot delete a pet with an approved application."
     else
       Pet.destroy(pet.id)
+      favorites.delete_pet(pet.id)
     end
     redirect_to '/pets'
   end
