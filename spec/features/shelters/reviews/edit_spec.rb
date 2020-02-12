@@ -110,7 +110,7 @@ RSpec.describe "As a visitor:" do
 
       click_button('Update Review')
 
-      expect(page).to have_content("You need to fill in a title, rating, and content in order to edit a shelter review")
+      expect(page).to have_content("Title can't be blank, Content can't be blank, Rating can't be blank, and Rating is not a number")
       expect(page).to have_button("Update Review")
     end
   end

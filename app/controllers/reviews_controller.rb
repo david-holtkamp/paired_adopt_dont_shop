@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
     end
 
     def invalid_edit
-      flash[:notice] = "You need to fill in a title, rating, and content in order to edit a shelter review"
+      flash[:notice] = @review.errors.full_messages.to_sentence
       render :edit
     end
 
@@ -38,7 +38,7 @@ class ReviewsController < ApplicationController
         redirect_to "/shelters/#{params[:shelter_id]}"
       else
         @shelter_id = params[:shelter_id]
-        flash.now[:notice] = "You need to fill in a title, rating, and content in order to submit a shelter review"
+        flash.now[:notice] = review.errors.full_messages.to_sentence
         render :new
       end
     end
