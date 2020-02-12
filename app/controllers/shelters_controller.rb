@@ -11,7 +11,7 @@ class SheltersController < ApplicationController
   end
 
   def create
-    shelter = Shelter.create(shelter_params)
+    shelter = Shelter.new(shelter_params)
     if shelter.save
       flash[:notice] = "Shelter created!"
       redirect_to '/shelters'
@@ -27,8 +27,7 @@ class SheltersController < ApplicationController
 
   def update
     shelter = Shelter.find(params[:id])
-    shelter.update(shelter_params)
-    if shelter.save
+    if shelter.update(shelter_params)
       flash[:notice] = "Shelter updated!"
       redirect_to "/shelters/#{shelter.id}"
     else
