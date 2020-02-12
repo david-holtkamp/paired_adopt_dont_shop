@@ -56,6 +56,8 @@ RSpec.describe Shelter, type: :model do
       expect(dog_city.pet_count).to eq(1)
       expect(shelter_a.pet_count).to eq(0)
       expect(cdp.pet_count).to eq(2)
+      expect(cdp.pet_count('Adoptable')).to eq(2)
+      expect(cdp.pet_count('Pending')).to eq(0)
     end
 
     it "average_review_rating" do

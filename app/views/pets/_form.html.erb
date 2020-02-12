@@ -1,0 +1,13 @@
+<%= form_tag(path, method: method) do %>
+  <%= label_tag :image %><br>
+  <%= text_field_tag :image, pre_fill[:image] %><br><br>
+  <%= label_tag :name %><br>
+  <%= text_field_tag :name, pre_fill[:name] %><br><br>
+  <%= label_tag :description %><br>
+  <%= text_area_tag :description, pre_fill[:description] %><br><br>
+  <%= label_tag :age %><br>
+  <%= text_field_tag :age, pre_fill[:age] %><br><br>
+  <%= label_tag :sex %><br>
+  <%= text_field_tag :sex, pre_fill[:sex] %><br><br>
+  <%= submit_tag button_text %>
+<% end %>
