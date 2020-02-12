@@ -20,10 +20,13 @@ class Pet < ApplicationRecord
     Pet.distinct.joins(:application_pets).order(:id)
   end
 
+  def approved_application
+    approved_app = application_pets.find_by(approved: :true)
+    approved_app.application if approved_app
+  end
+
   def adopter
-    approved_app = application_pets.find_by(approved: true)
-    if approved_app
-      approved_app.application.name
-    end
+    approved_app = approved_application
+    approved_app.name if approved_app
   end
 end
