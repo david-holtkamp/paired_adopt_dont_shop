@@ -1,0 +1,13 @@
+<%= form_tag(path, method: method) do %>
+  <%= label_tag :name %><br>
+  <%= text_field_tag :name, pre_fill[:name] %><br><br>
+  <%= label_tag :address %><br>
+  <%= text_field_tag :address, pre_fill[:address] %><br><br>
+  <%= label_tag :city %><br>
+  <%= text_field_tag :city, pre_fill[:city] %><br><br>
+  <%= label_tag :state %><br>
+  <%= text_field_tag :state, pre_fill[:state] %><br><br>
+  <%= label_tag :zip %><br>
+  <%= text_field_tag :zip, pre_fill[:zip] %><br><br>
+  <%= submit_tag button_text %>
+<% end %>
