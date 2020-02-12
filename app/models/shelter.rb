@@ -14,6 +14,6 @@ class Shelter < ApplicationRecord
   end
 
   def applicant_count
-    
+    pets.joins(:applications).select("applications.id").distinct.count
   end
 end

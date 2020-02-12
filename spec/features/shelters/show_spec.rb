@@ -112,7 +112,7 @@ RSpec.describe "As a visitor:" do
     it "I can see shelter statistics" do
       expect(page).to have_content("Count of Pets: 3")
       expect(page).to have_content("Average Review Rating: 3.5")
-      expect(page).to have_content("Number of Applications on File: 2")
+      expect(page).to have_content("Number of Applicants: 2")
     end
   end
 end
