@@ -39,6 +39,7 @@ class SheltersController < ApplicationController
   def destroy
     shelter = Shelter.find(params[:id])
     if shelter.pets.pending.empty?
+      favorites.delete_pets(shelter.pets.pluck(:id))
       Shelter.destroy(shelter.id)
     else
       flash[:notice] = "You cannot delete a shelter with approved pets."
