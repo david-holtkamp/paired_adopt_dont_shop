@@ -1,3 +1,33 @@
+# Adopt, Don't Shop
+This Rails application ---
+
+## Setup
+- Clone this repository onto your local computer
+- Perform the following setup steps after cloning the repo:
+  - `bundle install`
+  - `bundle update`
+  - `rake db:{drop,create,migrate,seed}`
+
+## Link
+[Adopt, Don't Shop](http://gentle-stream-28294.herokuapp.com/)
+
+## Contributors
+[David Holtkamp](https://github.com/DavidHoltkamp1)
+
+[David Atkins](https://github.com/d-atkins)
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Adopt Don't Shop Paired Project
 BE Mod 2 Week 2/3 Pair Project
 
