@@ -42,5 +42,24 @@ RSpec.describe "As a visitor:" do
       expect(page).to_not have_content(@pet_2.age)
       expect(page).to_not have_content(@pet_2.sex)
     end
+
+    it "I can see a link to application show page" do
+      app_1 = Application.create({
+        name: "David H",
+        address: "1234 julian st.",
+        city: "Denver",
+        state: "CO",
+        zip: "80211",
+        phone_number: "303-465-1112",
+        description: "I like dogs."
+        })
+
+      app_1.pets << @pet_1
+
+      visit "/applications/#{app_1.id}"
+      within("#pet-#{@pet_1.id}") { click_link('Approve Application')}
+
+      expect(page).to have_link(app_1.name)
+    end
   end
 end

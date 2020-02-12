@@ -14,6 +14,6 @@
   <p id="sex">Sex: <%= @pet.sex %></p>
   <p id="status">Status: <%= @pet.status %></p><br><br>
   <% if @pet.status == "Pending" %>
-    <p id="hold">On hold for <%= @pet.adopter %></p>
+    <p id="hold">On hold for <%= link_to @pet.adopter, "/applications/#{@pet.approved_application.id}" %></p>
   <% end %>
 </div>
