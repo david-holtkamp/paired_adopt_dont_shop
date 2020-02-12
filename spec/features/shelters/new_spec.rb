@@ -47,8 +47,9 @@ RSpec.describe "As a visitor:" do
         state: "Coolorado",
         zip: "88888"}
 
-      visit "/shelters/"
+      visit "/shelters"
       click_link "New Shelter"
+      expect(current_path).to eq("/shelters/new")
 
       fill_in 'name', with: new_shelter_info[:name]
       fill_in 'city', with: new_shelter_info[:city]
@@ -59,9 +60,6 @@ RSpec.describe "As a visitor:" do
 
       expect(page).to have_button("Create Shelter")
       expect(page).to have_content("Address can't be blank")
-      visit '/shelters'
-
-      click_link "New Shelter"
 
       fill_in 'address', with: new_shelter_info[:address]
       fill_in 'city', with: new_shelter_info[:city]
@@ -71,10 +69,6 @@ RSpec.describe "As a visitor:" do
       click_button("Create Shelter")
 
       expect(page).to have_content("Name can't be blank")
-
-      visit '/shelters'
-
-      click_link "New Shelter"
 
       fill_in 'name', with: new_shelter_info[:name]
       fill_in 'address', with: new_shelter_info[:address]
