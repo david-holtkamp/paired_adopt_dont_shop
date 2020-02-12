@@ -1,5 +1,9 @@
 # Adopt, Don't Shop
-This Rails application ---
+"Adopt Don't Shop Paired" is a fictitious pet adoption platform where visitors can favorite pets and apply to adopt their newest furry friend.
+
+Project completed over a week and a half during module 2 of Turing School's back end development program. 
+
+This project was built using a Rails framework, deployed with Heroku. We practiced Test Driven Development throughout the project, used MVC to organize code, Active Record, and our first practice with many-to-many relationships. We implemented ReSTful routing throughout, and played with POROs, partials and sessions as well. 
 
 ## Setup
 - Clone this repository onto your local computer
@@ -30,12 +34,6 @@ This Rails application ---
 
 # Adopt Don't Shop Paired Project
 BE Mod 2 Week 2/3 Pair Project
-
-## Background and Description
-
-"Adopt Don't Shop Paired" is a fictitious pet adoption platform where visitors can favorite pets and apply to adopt their newest furry friend.
-
-Students will be put into pairs to complete the project.
 
 ## Learning Goals
 
