@@ -38,5 +38,46 @@ RSpec.describe "As a visitor:" do
       expect(current_path).to eq('/shelters')
       expect(page).to have_content("Cool Dogs Palace")
     end
+
+    it "I get a flash message if I dont fill out all fields when creating shelter" do
+      new_shelter_info = {
+        name: "Cool Dogs Palace",
+        address: "89123 Cool St",
+        city: "Cool City",
+        state: "Coolorado",
+        zip: "88888"}
+
+      visit "/shelters"
+      click_link "New Shelter"
+      expect(current_path).to eq("/shelters/new")
+
+      fill_in 'name', with: new_shelter_info[:name]
+      fill_in 'city', with: new_shelter_info[:city]
+      fill_in 'state', with: new_shelter_info[:state]
+      fill_in 'zip', with: new_shelter_info[:zip]
+
+      click_button("Create Shelter")
+
+      expect(page).to have_button("Create Shelter")
+      expect(page).to have_content("Address can't be blank")
+
+      fill_in 'address', with: new_shelter_info[:address]
+      fill_in 'city', with: new_shelter_info[:city]
+      fill_in 'state', with: new_shelter_info[:state]
+      fill_in 'zip', with: new_shelter_info[:zip]
+
+      click_button("Create Shelter")
+
+      expect(page).to have_content("Name can't be blank")
+
+      fill_in 'name', with: new_shelter_info[:name]
+      fill_in 'address', with: new_shelter_info[:address]
+      fill_in 'city', with: new_shelter_info[:city]
+      fill_in 'zip', with: new_shelter_info[:zip]
+
+      click_button("Create Shelter")
+
+      expect(page).to have_content("State can't be blank")
+    end
   end
 end

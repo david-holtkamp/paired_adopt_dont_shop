@@ -23,6 +23,7 @@ RSpec.describe "As a visitor:" do
       expect(page).to have_content("Name: #{shelter_1.name}")
       expect(page).to_not have_content(shelter_2.name)
     end
+
     it "I cannot delete a shelter unless there are no pending pets" do
       dog_city = Shelter.create!(
         name: "Dog City",
@@ -77,6 +78,45 @@ RSpec.describe "As a visitor:" do
       visit "/pets"
 
       expect(page).to_not have_css("#pet-#{pet_1.id}")
+    end
+
+    it "I can delete a shelter and that will delete all its reviews" do
+
+      shelter_2 = Shelter.create!(
+        name: "delete me",
+        address: "do",
+        city: "it",
+        state: "you",
+        zip: "coward")
+      dog_city = Shelter.create!(
+        name: "Dog City",
+        address: "1923 Dog Ln",
+        city: "Doggington",
+        state: "CO",
+        zip: "80414")
+      img_review = Review.create!(
+        title: "omg!!!",
+        rating: 5,
+        content: "pets super amazin!!",
+        image: "https://cdn0.wideopenpets.com/wp-content/uploads/2016/04/valentines-8.jpg",
+        shelter: dog_city)
+      no_img_review = Review.create!(
+        title: "eh",
+        rating: 3,
+        content: "it's ok I guess",
+        shelter: dog_city)
+
+      dog_city.reviews << [img_review]
+      shelter_2.reviews << [no_img_review]
+
+      visit "/shelters"
+
+      expect(Review.first.title).to eq("omg!!!")
+      within("#shelter-#{dog_city.id}") { click_link("Delete Shelter")}
+
+      expect(Review.first.title).to eq("eh")
+      expect(Review.first.title).not_to eq("omg!!!")
+      expect(page).to_not have_content(dog_city.name)
     end
   end
 
