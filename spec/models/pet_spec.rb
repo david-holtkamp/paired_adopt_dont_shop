@@ -44,7 +44,6 @@ RSpec.describe Pet, type: :model do
         description: "dread of the seven seas",
         age: "400 years old?",
         sex: "male",
-        status: "Pending",
         shelter: @dog_city)
       @p2 = Pet.create!(
         image: "https://i.pinimg.com/originals/a9/cf/64/a9cf6473ca327409108ab02d15cc06b0.jpg",
@@ -52,7 +51,6 @@ RSpec.describe Pet, type: :model do
         description: "beagle pup eh",
         age: "6 months old",
         sex: "male",
-        status: "Pending",
         shelter: @dog_city)
       @a3 = Pet.create!(
         image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/WelshCorgi.jpeg",
@@ -67,8 +65,25 @@ RSpec.describe Pet, type: :model do
         description: "dread of the seven seas",
         age: "400 years old?",
         sex: "male",
-        status: "Pending",
         shelter: @dog_city)
+      @app_1 = Application.create({
+        name: "David H",
+        address: "1234 julian st.",
+        city: "Denver",
+        state: "CO",
+        zip: "80211",
+        phone_number: "303-465-1112",
+        description: "I like dogs."
+        })
+
+      @app_1.pets << [@p1, @p2, @p3]
+
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@p1.id}"){ click_link("Approve Application") }
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@p2.id}"){ click_link("Approve Application") }
+      visit "/applications/#{@app_1.id}"
+      within("#pet-#{@p3.id}"){ click_link("Approve Application") }
     end
 
     it "sort_by_status" do
@@ -84,45 +99,11 @@ RSpec.describe Pet, type: :model do
     end
 
     it "pets_with_applications" do
-      app_info = {name: "Joe", address: "12879 Maple St", city: "Denver", state: "CO", zip: "80211", phone_number: "202-131-5131", description: "I have snacks!"}
-      visit "/pets/#{@p1.id}"
-      click_link("Add to Favorites")
-      visit "/pets/#{@p2.id}"
-      click_link("Add to Favorites")
-      visit "/pets/#{@p3.id}"
-      click_link("Add to Favorites")
-
-      visit '/favorites'
-
-      click_link("Apply for Pets")
-
-      expect(current_path).to eq("/applications/new")
-      expect(page).to have_css("#checkbox-#{@p1.id}")
-      expect(page).to have_css("#checkbox-#{@p2.id}")
-      expect(page).to have_css("#checkbox-#{@p3.id}")
-
-      within("#checkbox-#{@p1.id}") {check "applied_for_"}
-      within("#checkbox-#{@p2.id}") {check "applied_for_"}
-
-      fill_in 'Name', with: app_info[:name]
-      fill_in 'Address', with: app_info[:name]
-      fill_in 'City', with: app_info[:city]
-      fill_in 'State', with: app_info[:state]
-      fill_in 'Zip', with: app_info[:zip]
-      fill_in 'Phone number', with: app_info[:phone_number]
-      fill_in "Description", with: app_info[:description]
-      click_button "Submit Application"
-
-      expect(Pet.applied_for).to eq([@p1, @p2])
+      expect(Pet.applied_for).to eq([@p1, @p2, @p3])
     end
 
     it "adopter" do
-      app = Application.create!(name: "Joe", address: "12879 Maple St", city: "Denver", state: "CO", zip: "80211", phone_number: "202-131-5131", description: "I have snacks!")
-      ApplicationPet.create!(application: app, pet: @a1)
-      visit "/applications/#{app.id}"
-      click_link "Approve Application"
-
-      expect(@a1.adopter).to eq(app.name)
+      expect(@p1.adopter).to eq(@app_1.name)
     end
   end
 end

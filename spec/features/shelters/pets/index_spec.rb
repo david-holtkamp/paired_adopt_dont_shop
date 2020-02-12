@@ -23,7 +23,6 @@ RSpec.describe "As a visitor:" do
         description: "beagle pup eh",
         age: "6 months old",
         sex: "male",
-        status: "Pending",
         shelter: @dog_city)
       @pet_2 = Pet.create!(
         image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/WelshCorgi.jpeg",
@@ -39,6 +38,23 @@ RSpec.describe "As a visitor:" do
         age: "400 years old?",
         sex: "male",
         shelter: @cdp)
+
+      app_1 = Application.create({
+        name: "David H",
+        address: "1234 julian st.",
+        city: "Denver",
+        state: "CO",
+        zip: "80211",
+        phone_number: "303-465-1112",
+        description: "I like dogs."
+        })
+
+        app_1.pets << @pet_1
+
+        visit "applications/#{app_1.id}"
+        click_link("Approve Application")
+
+
       visit "/shelters/#{@dog_city.id}/pets"
     end
 

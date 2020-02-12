@@ -15,7 +15,6 @@ RSpec.describe "As a visitor:" do
           description: "beagle pup eh",
           age: "6 months old",
           sex: "male",
-          status: "Pending",
           shelter: @dog_city)
       end
 
