@@ -40,6 +40,14 @@ RSpec.describe "As a visitor:" do
         zip: "12345",
         phone_number: "303-210-2301",
         description: "Just a regular guy.")
+      @app_2 = Application.create!(
+        name: "Slow Poke",
+        address: "492 Slow Avenue",
+        city: "Slow City",
+        state: "CO",
+        zip: "01201",
+        phone_number: "303-147-8324",
+        description: "Was too slow for the pup...")
       @app_1.pets << [@pet_1, @pet_2, @pet_3]
     end
 
@@ -102,15 +110,7 @@ RSpec.describe "As a visitor:" do
     end
 
     it "I can't approve an application if a pet is pending" do
-      app_2 = Application.create!(
-        name: "Slow Poke",
-        address: "492 Slow Avenue",
-        city: "Slow City",
-        state: "CO",
-        zip: "01201",
-        phone_number: "303-147-8324",
-        description: "Was too slow for the pup...")
-      app_2.pets << @pet_1
+      @app_2.pets << @pet_1
 
       visit "/applications/#{@app_1.id}"
       within("#pet-#{@pet_1.id}") { click_link('Approve Application')}
@@ -119,26 +119,30 @@ RSpec.describe "As a visitor:" do
       within("#pet-#{@pet_1.id}") { expect(page).to_not have_link('Approve Application')}
       within("#pet-#{@pet_1.id}") { expect(page).to have_content('Pending Adoption')}
 
-      visit "/applications/#{app_2.id}"
+      visit "/applications/#{@app_2.id}"
+      within("#pet-#{@pet_1.id}") { expect(page).to_not have_link('Approve Application')}
+      within("#pet-#{@pet_1.id}") { expect(page).to have_content('Pending Adoption')}
+    end
+
+    it "I can't approve an application if a pet is pending even if I still have the link" do
+      @app_2.pets << @pet_1
+
+      visit "/applications/#{@app_2.id}"
+      @pet_1.update(status: "Pending")
+      within("#pet-#{@pet_1.id}") { click_link('Approve Application')}
+
+      visit "/applications/#{@app_2.id}"
       within("#pet-#{@pet_1.id}") { expect(page).to_not have_link('Approve Application')}
       within("#pet-#{@pet_1.id}") { expect(page).to have_content('Pending Adoption')}
     end
 
     it "I can cancel approval of an application" do
-      app_2 = Application.create!(
-        name: "Slow Poke",
-        address: "492 Slow Avenue",
-        city: "Slow City",
-        state: "CO",
-        zip: "01201",
-        phone_number: "303-147-8324",
-        description: "Was too slow for the pup...")
-      app_2.pets << @pet_1
+      @app_2.pets << @pet_1
 
       visit "/applications/#{@app_1.id}"
       within("#pet-#{@pet_1.id}") { click_link('Approve Application')}
 
-      visit "/applications/#{app_2.id}"
+      visit "/applications/#{@app_2.id}"
       within("#pet-#{@pet_1.id}") { expect(page).to_not have_link("Approve Application")}
       within("#pet-#{@pet_1.id}") { expect(page).to_not have_link("Cancel Approval")}
 
@@ -149,7 +153,7 @@ RSpec.describe "As a visitor:" do
       expect(current_path).to eq("/applications/#{@app_1.id}")
       within("#pet-#{@pet_1.id}") { expect(page).to have_link('Approve Application')}
 
-      visit "/applications/#{app_2.id}"
+      visit "/applications/#{@app_2.id}"
       within("#pet-#{@pet_1.id}") { expect(page).to have_link('Approve Application')}
 
       visit "/pets/#{@pet_1.id}"

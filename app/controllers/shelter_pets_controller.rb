@@ -11,7 +11,8 @@ class ShelterPetsController < ApplicationController
   end
 
   def create
-    Pet.create(pet_params)
+    pet = Pet.new(pet_params)
+    flash[:notice] = "Failed to create pet: #{pet.errors.full_messages.to_sentence}" if !pet.save
     redirect_to "/shelters/#{params[:shelter_id]}/pets"
   end
 

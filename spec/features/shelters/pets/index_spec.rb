@@ -70,10 +70,10 @@ RSpec.describe "As a visitor:" do
     end
 
     it "I can delete a pet" do
-      within("#pet-#{@pet_1.id}") { click_link("Delete Pet") }
+      within("#pet-#{@pet_2.id}") { click_link("Delete Pet") }
 
       expect(current_path).to eq("/pets")
-      expect(page).to_not have_content(@pet_1.name)
+      expect(page).to_not have_content(@pet_2.name)
     end
 
     it "I can click a shelter name to get to its show page" do

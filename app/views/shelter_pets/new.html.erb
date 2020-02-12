@@ -1,14 +1,8 @@
 <h3>Enter details for a new adoptable pet:</h3>
-<%= form_tag("/shelters/#{@shelter_id}/pets") do %>
-  <%= label_tag :image %><br>
-  <%= text_field_tag :image %><br><br>
-  <%= label_tag :name %><br>
-  <%= text_field_tag :name %><br><br>
-  <%= label_tag :description %><br>
-  <%= text_area_tag :description %><br><br>
-  <%= label_tag :age %><br>
-  <%= text_field_tag :age %><br><br>
-  <%= label_tag :sex %><br>
-  <%= text_field_tag :sex %><br><br>
-  <%= submit_tag "Create Pet" %>
-<% end %>
+<%= render partial: './pets/form',
+  locals: {
+    path: "/shelters/#{@shelter_id}/pets",
+    method: :post,
+    button_text: 'Create Pet',
+    pre_fill: {}
+  } %>

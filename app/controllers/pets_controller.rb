@@ -19,12 +19,20 @@ class PetsController < ApplicationController
 
   def update
     pet = Pet.find(params[:id])
-    pet.update(pet_params)
+    if !pet.update(pet_params)
+      flash[:notice] = "Failed to update pet: #{pet.errors.full_messages.to_sentence}"
+    end
     redirect_to "/pets/#{pet.id}"
   end
 
   def destroy
-    Pet.delete(params[:id])
+    pet = Pet.find(params[:id])
+    if pet.status == "Pending"
+      flash[:notice] = "You cannot delete a pet with an approved application."
+    else
+      Pet.destroy(pet.id)
+      favorites.delete_pet(pet.id)
+    end
     redirect_to '/pets'
   end
 
