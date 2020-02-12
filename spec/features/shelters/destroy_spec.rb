@@ -111,6 +111,7 @@ RSpec.describe "As a visitor:" do
 
       visit "/shelters"
 
+      expect(Review.first.title).to eq("omg!!!")
       within("#shelter-#{dog_city.id}") { click_link("Delete Shelter")}
 
       expect(Review.first.title).to eq("eh")
