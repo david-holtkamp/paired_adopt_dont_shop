@@ -34,12 +34,12 @@ class ReviewsController < ApplicationController
     end
 
     def attempt_create(review)
-      if review.save
-        redirect_to "/shelters/#{params[:shelter_id]}"
-      else
-        @shelter_id = params[:shelter_id]
-        flash.now[:notice] = review.errors.full_messages.to_sentence
-        render :new
-      end
+      review.save ? redirect_to("/shelters/#{params[:shelter_id]}") : fail_create(review)
+    end
+
+    def fail_create(review)
+      @shelter_id = params[:shelter_id]
+      flash.now[:notice] = review.errors.full_messages.to_sentence
+      render :new
     end
 end
