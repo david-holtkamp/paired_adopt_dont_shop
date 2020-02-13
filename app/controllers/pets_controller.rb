@@ -20,6 +20,7 @@ class PetsController < ApplicationController
   def update
     pet = Pet.find(params[:id])
     flash[:notice] = "Failed to update pet: #{pet.errors.full_messages.to_sentence}" if !pet.update(pet_params)
+    pet.update(image: linkify(pet.image)) if is_invalid?(pet.image)
     redirect_to "/pets/#{pet.id}"
   end
 

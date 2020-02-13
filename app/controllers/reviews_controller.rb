@@ -14,7 +14,12 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:review_id])
-    @review.update(review_params) ? redirect_to("/shelters/#{params[:shelter_id]}") : invalid_edit
+    if @review.update(review_params)
+      @review.update(image: linkify(@review.image)) if is_invalid?(@review.image)
+      redirect_to("/shelters/#{params[:shelter_id]}")
+    else
+      invalid_edit
+    end
   end
 
   def destroy
@@ -38,6 +43,7 @@ class ReviewsController < ApplicationController
     end
 
     def attempt_create(review)
+      review.update(image: linkify(review.image)) if is_invalid?(review.image)
       review.save ? redirect_to("/shelters/#{params[:shelter_id]}") : fail_create(review)
     end
 

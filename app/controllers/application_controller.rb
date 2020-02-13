@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_invalid?(path)
-    path.index("http://") != 0 || path.index("https://") != 0
+    path.index("http://") != 0 && path.index("https://") != 0
   end
 
   def linkify(path)
