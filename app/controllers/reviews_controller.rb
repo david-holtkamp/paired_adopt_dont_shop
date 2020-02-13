@@ -25,7 +25,11 @@ class ReviewsController < ApplicationController
   private
 
     def review_params
-      params.permit(:title, :rating, :content, :image, :shelter_id)
+      if (params[:image] == '')
+        params.permit(:title, :rating, :content, :shelter_id)
+      else
+        params.permit(:title, :rating, :content, :image, :shelter_id)
+      end
     end
 
     def invalid_edit
