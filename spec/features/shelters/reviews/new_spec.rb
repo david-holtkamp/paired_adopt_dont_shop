@@ -58,7 +58,7 @@ RSpec.describe "As a visitor:" do
         expect(page).to have_content("#{@no_img_info[:title]}")
         expect(page).to have_content("Rating: #{@no_img_info[:rating]}")
         expect(page).to have_content("Content: #{@no_img_info[:content]}")
-        expect(page).to_not have_css('img')
+        expect(page).to have_css('img')
         expect(page).to_not have_content("#{@img_review[:title]}")
         expect(page).to_not have_content("#{@no_img_review[:title]}")
       end
