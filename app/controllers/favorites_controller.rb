@@ -9,7 +9,7 @@ class FavoritesController < ApplicationController
   end
 
   def index
-    @pets = Pet.find(favorites.contents)
+    @pets = Pet.where(id: favorites.contents)
     @pets_with_applications = Pet.applied_for
   end
 
