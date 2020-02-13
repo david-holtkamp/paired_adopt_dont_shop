@@ -20,7 +20,7 @@
       </ul>
     </nav>
     <% flash.each do |type, message| %>
-      <p class="center"><%= message %></p>
+      <div class="center flash"><%= message %></div>
     <% end %>
     <section class=content><%= yield %></section>
   </body>

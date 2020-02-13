@@ -69,14 +69,14 @@ RSpec.describe Shelter, type: :model do
         zip: "12345"
       )
 
-      img_review = Review.create!(
+      Review.create!(
         title: "omg!!!",
         rating: 5,
         content: "pets super amazin!!",
         image: "https://cdn0.wideopenpets.com/wp-content/uploads/2016/04/valentines-8.jpg",
         shelter: shelter_1
       )
-      no_img_review = Review.create!(
+      Review.create!(
         title: "eh",
         rating: 3,
         content: "it's ok I guess",

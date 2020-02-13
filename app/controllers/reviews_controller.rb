@@ -29,17 +29,17 @@ class ReviewsController < ApplicationController
     end
 
     def invalid_edit
-      flash[:notice] = "You need to fill in a title, rating, and content in order to edit a shelter review"
+      flash[:notice] = @review.errors.full_messages.to_sentence
       render :edit
     end
 
     def attempt_create(review)
-      if review.save
-        redirect_to "/shelters/#{params[:shelter_id]}"
-      else
-        @shelter_id = params[:shelter_id]
-        flash.now[:notice] = "You need to fill in a title, rating, and content in order to submit a shelter review"
-        render :new
-      end
+      review.save ? redirect_to("/shelters/#{params[:shelter_id]}") : fail_create(review)
+    end
+
+    def fail_create(review)
+      @shelter_id = params[:shelter_id]
+      flash.now[:notice] = review.errors.full_messages.to_sentence
+      render :new
     end
 end

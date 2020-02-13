@@ -46,6 +46,12 @@ nav a:hover {
   color: gray;
 }
 
+.flash {
+  background: #957DAD;
+  color: white;
+  padding: 10px;
+}
+
 .name {
   font-weight: bold;
   text-decoration: none;
@@ -155,5 +161,21 @@ nav a:hover {
 }
 
 .across {
-  width: 80%
+  width: 80%;
+}
+
+.review {
+  width:60%;
+  margin-left: 15%;
+}
+
+.card.review img {
+  border-radius: 5px;
+  width: 45%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  float: right;
+  margin-bottom: 50px;
+  margin-right: 30px;
 }

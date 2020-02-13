@@ -17,6 +17,10 @@ class Favorites
     @contents.delete(id.to_s)
   end
 
+  def delete_pets(pet_ids)
+    pet_ids.each { |pet_id| delete_pet(pet_id) }
+  end
+
   def reset
     @contents = Array.new
   end

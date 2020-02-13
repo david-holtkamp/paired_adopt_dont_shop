@@ -32,7 +32,7 @@ RSpec.describe "As a visitor" do
 
       within("#review-#{@no_img_review.id}") do
         expect(page).to have_link("Delete Review")
-      end 
+      end
     end
     it "I can delete any review" do
       visit "/shelters/#{@shelter_1.id}"
@@ -40,7 +40,7 @@ RSpec.describe "As a visitor" do
       within("#review-#{@img_review.id}") { click_on("Delete Review") }
 
       expect(current_path).to eq("/shelters/#{@shelter_1.id}")
-      expect(page).to_not have_content("Title: #{@img_review[:title]}")
+      expect(page).to_not have_content("#{@img_review[:title]}")
       expect(page).to_not have_content("Rating: #{@img_review[:rating]}")
       expect(page).to_not have_content("Content: #{@img_review[:content]}")
     end

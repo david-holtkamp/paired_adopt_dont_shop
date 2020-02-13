@@ -16,7 +16,7 @@ class SheltersController < ApplicationController
       flash[:notice] = "Shelter created!"
       redirect_to '/shelters'
     else
-      flash[:error] = shelter.errors.full_messages.to_sentence
+      flash.now[:error] = shelter.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -39,6 +39,7 @@ class SheltersController < ApplicationController
   def destroy
     shelter = Shelter.find(params[:id])
     if shelter.pets.pending.empty?
+      favorites.delete_pets(shelter.pets.pluck(:id))
       Shelter.destroy(shelter.id)
     else
       flash[:notice] = "You cannot delete a shelter with approved pets."
