@@ -16,7 +16,7 @@ class SheltersController < ApplicationController
       flash[:notice] = "Shelter created!"
       redirect_to '/shelters'
     else
-      flash[:error] = shelter.errors.full_messages.to_sentence
+      flash.now[:error] = shelter.errors.full_messages.to_sentence
       render :new
     end
   end
