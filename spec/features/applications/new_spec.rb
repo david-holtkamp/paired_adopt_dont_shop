@@ -93,6 +93,17 @@ RSpec.describe "As a visitor:" do
       click_button "Submit Application"
 
       expect(page).to have_content("You must complete the form in order to submit the application.")
+
+      fill_in 'Name', with: app_info[:name]
+      fill_in 'Address', with: app_info[:name]
+      fill_in 'City', with: app_info[:city]
+      fill_in 'State', with: app_info[:state]
+      fill_in 'Zip', with: app_info[:zip]
+      fill_in 'Phone number', with: app_info[:phone_number]
+      fill_in "Description", with: app_info[:description]
+      click_button "Submit Application"
+
+      expect(page).to have_content("You must complete the form in order to submit the application.")
     end
   end
 end
