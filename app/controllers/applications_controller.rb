@@ -8,8 +8,12 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    application = Application.new(application_params)
-    application.save ? successful_application(application) : failed_application
+    if params[:applied_for] && params[:applied_for].length > 0
+      application = Application.new(application_params)
+      application.save ? successful_application(application) : failed_application
+    else
+      failed_application
+    end
   end
 
   def show
@@ -31,7 +35,7 @@ class ApplicationsController < ApplicationController
 
     def failed_application
       @pets = Pet.find(favorites.contents)
-      flash[:notice] = "You must complete the form in order to submit the application."
+      flash.now[:notice] = "You must complete the form in order to submit the application."
       render :new
     end
 end

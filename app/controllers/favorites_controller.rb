@@ -10,6 +10,8 @@ class FavoritesController < ApplicationController
 
   def index
     @pets = Pet.where(id: favorites.contents)
+    favorites.refresh(@pets.pluck(:id))
+    session[:favorites] = favorites.contents
     @pets_with_applications = Pet.applied_for
   end
 
