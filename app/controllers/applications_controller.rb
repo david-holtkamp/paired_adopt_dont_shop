@@ -4,12 +4,13 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-    @pets = Pet.find(favorites.contents)
+    @pets = Pet.where(id: favorites.contents)
   end
 
   def create
+    pets_selected = params[:applied_for] && !params[:applied_for].empty?
     application = Application.new(application_params)
-    application.save ? successful_application(application) : failed_application
+    pets_selected && application.save ? successful_application(application) : failed_application
   end
 
   def show
@@ -24,7 +25,7 @@ class ApplicationsController < ApplicationController
 
     def successful_application(application)
       application.pets << Pet.find(params[:applied_for])
-      params[:applied_for].each { |pet| favorites.delete_pet(pet) }
+      favorites.delete_pets(params[:applied_for])
       flash[:notice] = "You have successfully submitted your application!"
       redirect_to '/favorites'
     end
