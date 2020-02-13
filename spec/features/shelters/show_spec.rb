@@ -95,7 +95,7 @@ RSpec.describe "As a visitor:" do
 
     it "I see a list of reviews for that shelter" do
       within("#review-#{@img_review.id}") do
-        expect(page).to have_content("Title: #{@img_review.title}")
+        expect(page).to have_content("#{@img_review.title}")
         expect(page).to have_content("Rating: #{@img_review.rating}")
         expect(page).to have_content("Content: #{@img_review.content}")
         expect(page).to have_css("img[src*='#{@img_review.image}']")

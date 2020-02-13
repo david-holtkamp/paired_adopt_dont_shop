@@ -55,12 +55,12 @@ RSpec.describe "As a visitor:" do
       expect(current_path).to eq("/shelters/#{@shelter_1.id}")
 
       within("#review-#{Review.last.id}") do
-        expect(page).to have_content("Title: #{@no_img_info[:title]}")
+        expect(page).to have_content("#{@no_img_info[:title]}")
         expect(page).to have_content("Rating: #{@no_img_info[:rating]}")
         expect(page).to have_content("Content: #{@no_img_info[:content]}")
         expect(page).to_not have_css('img')
-        expect(page).to_not have_content("Title: #{@img_review[:title]}")
-        expect(page).to_not have_content("Title: #{@no_img_review[:title]}")
+        expect(page).to_not have_content("#{@img_review[:title]}")
+        expect(page).to_not have_content("#{@no_img_review[:title]}")
       end
     end
 
@@ -79,12 +79,12 @@ RSpec.describe "As a visitor:" do
       expect(current_path).to eq("/shelters/#{@shelter_1.id}")
 
       within("#review-#{Review.last.id}") do
-        expect(page).to have_content("Title: #{@img_info[:title]}")
+        expect(page).to have_content("#{@img_info[:title]}")
         expect(page).to have_content("Rating: #{@img_info[:rating]}")
         expect(page).to have_content("Content: #{@img_info[:content]}")
         expect(page).to have_css("img[src*='#{@img_info[:image]}']")
-        expect(page).to_not have_content("Title: #{@img_review[:title]}")
-        expect(page).to_not have_content("Title: #{@no_img_review[:title]}")
+        expect(page).to_not have_content("#{@img_review[:title]}")
+        expect(page).to_not have_content("#{@no_img_review[:title]}")
       end
     end
 
