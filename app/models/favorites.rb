@@ -21,6 +21,10 @@ class Favorites
     pet_ids.each { |pet_id| delete_pet(pet_id) }
   end
 
+  def refresh(pets)
+    @contents = pets.map {|id| id.to_s }
+  end
+
   def reset
     @contents = Array.new
   end
